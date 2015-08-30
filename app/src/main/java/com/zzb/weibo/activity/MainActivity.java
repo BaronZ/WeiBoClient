@@ -1,9 +1,11 @@
-package com.zzb.weibo;
+package com.zzb.weibo.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.zzb.weibo.R;
 
 public class MainActivity extends AppCompatActivity {
 
