@@ -10,8 +10,11 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "0.0.1"
+        //请在gradle.properties文件里定义下面这几个变量
         buildConfigField 'String', 'BUGLY_APP_ID', BUGLY_APP_ID
         buildConfigField 'String', 'BUGLY_APP_KEY', BUGLY_APP_KEY
+        buildConfigField 'String', 'WEIBO_APP_KEY', WEIBO_APP_KEY
+        buildConfigField 'String', 'WEIBO_APP_SECRET', WEIBO_APP_SECRET
     }
     buildTypes {
         release {
