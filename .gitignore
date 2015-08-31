@@ -6,3 +6,4 @@
 /captures
 WeiBoClient.iml
 app.iml
+app/src/main/java/com/zzb/weibo/common/LocalConfig.java
