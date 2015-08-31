@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'bugly'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
@@ -10,6 +10,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "0.0.1"
+        buildConfigField 'String', 'BUGLY_APP_ID', BUGLY_APP_ID
+        buildConfigField 'String', 'BUGLY_APP_KEY', BUGLY_APP_KEY
     }
     buildTypes {
         release {
@@ -25,4 +27,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.tencent.bugly:crashreport:1.2.3.8'
+}
+bugly {
+    appId = BUGLY_APP_ID
+    appKey = BUGLY_APP_KEY
 }
