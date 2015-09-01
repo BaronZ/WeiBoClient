@@ -15,11 +15,20 @@ android {
         buildConfigField 'String', 'BUGLY_APP_KEY', BUGLY_APP_KEY
         buildConfigField 'String', 'WEIBO_APP_KEY', WEIBO_APP_KEY
         buildConfigField 'String', 'WEIBO_APP_SECRET', WEIBO_APP_SECRET
+        manifestPlaceholders = [UMENG_APP_KEY: UMENG_APP_KEY]
     }
     buildTypes {
+        debug{
+            manifestPlaceholders = [UMENG_CHANNEL: "debug"]
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        github {
+            manifestPlaceholders = [UMENG_CHANNEL: "github"]
         }
     }
 }
@@ -31,6 +40,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.tencent.bugly:crashreport:1.2.3.8'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
 bugly {
     appId = BUGLY_APP_ID

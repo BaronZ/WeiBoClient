@@ -1,6 +1,7 @@
 package com.zzb.weibo.common;
 
 import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.analytics.MobclickAgent;
 import com.zzb.weibo.BuildConfig;
 import com.zzb.weibo.MyApplication;
 
@@ -29,7 +30,13 @@ public class AppInit {
     }
     private void common(){
         initBugly();
+        initUmeng();
     }
+
+    private void initUmeng() {
+        MobclickAgent.openActivityDurationTrack(false);
+    }
+
     /**
      * 调试环境配置
      *created at 2015/8/31 17:35
