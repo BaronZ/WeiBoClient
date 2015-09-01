@@ -1,5 +1,7 @@
 package com.zzb.weibo.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -15,17 +17,15 @@ public class AccessToken {
     public String token;//用于调用access_token，接口获取授权后的access token
     @Expose
     @SerializedName("expires_in")
-    private long expiresIn;//access_token的生命周期，单位是秒数
-    public long expiresTime;//具体过期时间点
-    public void setExpiresIn(long expiresIn){
-        this.expiresIn = expiresIn;
-        expiresTime = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(expiresIn);
-    }
-    //是否有效
+    public long expiresIn;//access_token的生命周期，单位是秒数
+
+    public long expiresTime;//具体过期时间点,单位是毫秒
+
     public boolean isValid(){
-        return System.currentTimeMillis() < expiresTime;
+        long leftMillis = expiresTime - System.currentTimeMillis();
+        Log.i("AccessToken", "过期时间还剩：" + TimeUnit.MILLISECONDS.toMinutes(leftMillis) + "分");
+        return leftMillis > 0;
     }
-    public long getExpiresIn(){
-        return expiresIn;
-    }
+
+
 }

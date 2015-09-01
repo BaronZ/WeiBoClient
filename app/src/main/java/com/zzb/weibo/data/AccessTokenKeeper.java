@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.zzb.weibo.model.AccessToken;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by ZZB on 2015/9/1.
  */
@@ -23,10 +25,11 @@ public class AccessTokenKeeper {
      * @param token   Token 对象
      */
     public static void writeAccessToken(Context context, AccessToken token) {
-        Log.i(TAG, "保存access token:" + token.token + " expires in:" + token.getExpiresIn());
+        Log.i(TAG, "保存access token:" + token.token + " expires in:" + token.expiresIn);
         if (null == context || null == token) {
             return;
         }
+        token.expiresTime = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(token.expiresIn);
         SharedPreferences pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(KEY_ACCESS_TOKEN, token.token);

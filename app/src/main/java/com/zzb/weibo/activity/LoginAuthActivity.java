@@ -1,5 +1,6 @@
 package com.zzb.weibo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
@@ -47,8 +48,9 @@ public class LoginAuthActivity extends BaseActivity {
                 error -> {
                     Log.e(TAG, "getAccessToken ", error);
                 },
-                () -> {
-                    
+                () -> {//complete
+                    Intent intent = new Intent(LoginAuthActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
         );
     }
