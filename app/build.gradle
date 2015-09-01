@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'bugly'
+apply plugin: 'me.tatarka.retrolambda'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
@@ -30,6 +31,10 @@ android {
         github {
             manifestPlaceholders = [UMENG_CHANNEL: "github"]
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
