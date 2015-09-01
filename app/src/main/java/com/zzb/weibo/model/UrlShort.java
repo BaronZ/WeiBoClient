@@ -1,5 +1,8 @@
 package com.zzb.weibo.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 短链
  * Created by ZZB on 2015/8/31.

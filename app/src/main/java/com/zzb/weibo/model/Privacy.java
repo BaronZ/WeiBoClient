@@ -1,5 +1,7 @@
 package com.zzb.weibo.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * 隐私设置
  * Created by ZZB on 2015/8/31.

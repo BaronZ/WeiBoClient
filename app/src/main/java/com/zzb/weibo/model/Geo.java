@@ -1,5 +1,8 @@
 package com.zzb.weibo.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 地理信息
  * Created by ZZB on 2015/8/30.
