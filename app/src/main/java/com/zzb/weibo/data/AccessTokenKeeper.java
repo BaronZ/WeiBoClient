@@ -2,6 +2,7 @@ package com.zzb.weibo.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.zzb.weibo.model.AccessToken;
 
@@ -9,7 +10,7 @@ import com.zzb.weibo.model.AccessToken;
  * Created by ZZB on 2015/9/1.
  */
 public class AccessTokenKeeper {
-
+    private static final String TAG = AccessTokenKeeper.class.getSimpleName();
     private static final String PREFERENCES_NAME = "AUTH_ACCESS_TOKEN";
 
     private static final String KEY_ACCESS_TOKEN  = "KEY_ACCESS_TOKEN";
@@ -22,10 +23,10 @@ public class AccessTokenKeeper {
      * @param token   Token 对象
      */
     public static void writeAccessToken(Context context, AccessToken token) {
+        Log.i(TAG, "保存access token:" + token.token + " expires in:" + token.getExpiresIn());
         if (null == context || null == token) {
             return;
         }
-
         SharedPreferences pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(KEY_ACCESS_TOKEN, token.token);
