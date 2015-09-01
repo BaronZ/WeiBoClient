@@ -13,7 +13,8 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-
+        Intent intent = new Intent(this, LoginAuthActivity.class);
+        startActivity(intent);
     }
 
     @Override

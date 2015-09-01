@@ -46,6 +46,7 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.tencent.bugly:crashreport:1.2.3.8'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.zzb.library:android-common:0.4.2'
 }
 bugly {
     appId = BUGLY_APP_ID

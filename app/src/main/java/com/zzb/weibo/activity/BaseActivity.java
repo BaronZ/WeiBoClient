@@ -1,6 +1,7 @@
 package com.zzb.weibo.activity;
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
 
@@ -9,6 +10,10 @@ import com.umeng.analytics.MobclickAgent;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    protected <T extends View> T $(int id){
+        return (T) findViewById(id);
+    }
+    //获取类名，用来给友盟统计使用
     protected abstract String getClassName();
     @Override
     protected void onResume() {

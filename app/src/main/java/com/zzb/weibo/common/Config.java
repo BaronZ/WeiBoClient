@@ -6,6 +6,7 @@ import com.zzb.weibo.BuildConfig;
  * Created by ZZB on 2015/8/31.
  */
 public class Config {
+    public static final String REDIRECT_URL="https://api.weibo.com/oauth2/default.html";
 //    // 请上 open.weibo.com 自行注册应用并替换下面两个参数
     public static final String APP_SECRET = BuildConfig.WEIBO_APP_SECRET;
     public static final String APP_KEY = BuildConfig.WEIBO_APP_KEY;

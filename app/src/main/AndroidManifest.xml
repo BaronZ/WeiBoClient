@@ -19,13 +19,20 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity" />
+        <!-- <meta-data android:value="${UMENG_APP_KEY}" android:name="UMENG_APPKEY"/> -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL}" />
+
         <activity
-            android:name=".activity.MainActivity" />
-        <!--<meta-data android:value="${UMENG_APP_KEY}" android:name="UMENG_APPKEY"/>-->
-        <meta-data android:value="${UMENG_CHANNEL}" android:name="UMENG_CHANNEL"/>
+            android:name=".activity.LoginAuthActivity"
+            android:label="@string/title_activity_auth" >
+        </activity>
     </application>
 
 </manifest>
