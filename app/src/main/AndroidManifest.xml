@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name=".activity.MainActivity" />
-        <meta-data android:value="${UMENG_APP_KEY}" android:name="UMENG_APPKEY"/>
+        <!--<meta-data android:value="${UMENG_APP_KEY}" android:name="UMENG_APPKEY"/>-->
         <meta-data android:value="${UMENG_CHANNEL}" android:name="UMENG_CHANNEL"/>
     </application>
 

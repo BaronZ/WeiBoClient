@@ -1,6 +1,7 @@
 package com.zzb.weibo.common;
 
 import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.zzb.weibo.BuildConfig;
 import com.zzb.weibo.MyApplication;
@@ -34,6 +35,8 @@ public class AppInit {
     }
 
     private void initUmeng() {
+        AnalyticsConfig.setAppkey(BuildConfig.UMENG_APP_KEY);
+        MobclickAgent.setDebugMode(BuildConfig.DEBUG);
         MobclickAgent.openActivityDurationTrack(false);
     }
 

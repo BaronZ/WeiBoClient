@@ -15,7 +15,7 @@ android {
         buildConfigField 'String', 'BUGLY_APP_KEY', BUGLY_APP_KEY
         buildConfigField 'String', 'WEIBO_APP_KEY', WEIBO_APP_KEY
         buildConfigField 'String', 'WEIBO_APP_SECRET', WEIBO_APP_SECRET
-        manifestPlaceholders = [UMENG_APP_KEY: UMENG_APP_KEY]
+        buildConfigField 'String', 'UMENG_APP_KEY', UMENG_APP_KEY
     }
     buildTypes {
         debug{
