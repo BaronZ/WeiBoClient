@@ -41,7 +41,7 @@ public class LoginAuthActivity extends BaseActivity {
     }
 
     private void getAccessToken(String code) {
-        RetrofitHelper.getApi(AuthApi.class).getAccessToken(code).subscribeOn(AndroidSchedulers.mainThread()).subscribe(
+        RetrofitHelper.getApi(HttpConfig.AUTH_END_POINT, AuthApi.class).getAccessToken(code).subscribeOn(AndroidSchedulers.mainThread()).subscribe(
                 token -> {
                     AccessTokenKeeper.writeAccessToken(LoginAuthActivity.this, token);
                 },

@@ -1,18 +1,42 @@
 package com.zzb.weibo.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.zzb.weibo.R;
+import com.zzb.weibo.data.AccessTokenKeeper;
+import com.zzb.weibo.http.api.WeiBoApi;
+import com.zzb.weibo.http.base.RetrofitHelper;
+import com.zzb.weibo.model.StatusList;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends BaseActivity {
-
+    private static final String TAG = MainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RetrofitHelper.getApi(WeiBoApi.class).getFriendsTimeLine(AccessTokenKeeper.readAccessToken(this).token).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<StatusList>() {
 
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError ", e);
+            }
+
+            @Override
+            public void onNext(StatusList statuses) {
+                Log.i(TAG, "onNext " + statuses.statuses.size());
+            }
+        });
     }
 
     @Override
