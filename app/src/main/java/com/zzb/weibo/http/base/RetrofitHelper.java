@@ -15,15 +15,19 @@ public class RetrofitHelper {
 
     private static RestAdapter getWeiboRestAdapterAdapter(){
         if(mWeiboRestAdapter == null){
-            RequestInterceptor tokenInterceptor = request -> {
-                String token = AccessTokenKeeper.getAccessToken(MyApplication.APP_CONTEXT);
-                request.addHeader("Authorization", "OAuth2 " + token);
-            };
-            mWeiboRestAdapter = new RestAdapter.Builder().setEndpoint(HttpConfig.END_POINT).setRequestInterceptor(tokenInterceptor).build();
-
+            initWeiBoRestAdapter();
         }
         return mWeiboRestAdapter;
     }
+
+    private static void initWeiBoRestAdapter() {
+        RequestInterceptor tokenInterceptor = request -> {
+            String token = AccessTokenKeeper.getAccessToken(MyApplication.APP_CONTEXT);
+            request.addHeader("Authorization", "OAuth2 " + token);
+        };
+        mWeiboRestAdapter = new RestAdapter.Builder().setEndpoint(HttpConfig.END_POINT).setRequestInterceptor(tokenInterceptor).build();
+    }
+
     //自定义end point的api
     public static <T> T getApi(String endPoint, Class<T> tClass){
         return new RestAdapter.Builder().setEndpoint(endPoint).build().create(tClass);
