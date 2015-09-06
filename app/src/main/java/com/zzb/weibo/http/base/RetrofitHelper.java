@@ -6,6 +6,7 @@ import com.zzb.weibo.data.AccessTokenKeeper;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 
 /**
  * RetrofitHelper用来生成retrofit api
@@ -28,6 +29,7 @@ public class RetrofitHelper {
         };
         mWeiboRestAdapter = new RestAdapter.Builder()
                 .setEndpoint(HttpConfig.END_POINT)
+                .setClient(new OkClient())
                 .setRequestInterceptor(tokenInterceptor)
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .build();
