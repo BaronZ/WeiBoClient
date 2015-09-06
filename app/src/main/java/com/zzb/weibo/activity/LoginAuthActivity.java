@@ -10,6 +10,7 @@ import com.zzb.library.utils.UrlUtils;
 import com.zzb.weibo.R;
 import com.zzb.weibo.data.AccessTokenKeeper;
 import com.zzb.weibo.http.api.AuthApi;
+import com.zzb.weibo.http.base.ApiUrl;
 import com.zzb.weibo.http.base.HttpConfig;
 import com.zzb.weibo.http.base.RetrofitHelper;
 
@@ -37,7 +38,7 @@ public class LoginAuthActivity extends BaseActivity {
             }
         });
         //请求用户授权Token
-        mWebView.loadUrl(HttpConfig.AUTH_URL);
+        mWebView.loadUrl(ApiUrl.Auth.AUTH_URL);
     }
 
     private void getAccessToken(String code) {

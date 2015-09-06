@@ -1,6 +1,6 @@
 package com.zzb.weibo.http.api;
 
-import com.zzb.weibo.http.base.HttpConfig;
+import com.zzb.weibo.http.base.ApiUrl;
 import com.zzb.weibo.model.AccessToken;
 
 import retrofit.http.Field;
@@ -15,6 +15,6 @@ import rx.Observable;
 public interface AuthApi {
 
     @FormUrlEncoded
-    @POST(HttpConfig.ACCESS_TOKEN_URL)
+    @POST(ApiUrl.Auth.ACCESS_TOKEN_URL)
     Observable<AccessToken> getAccessToken(@Field("code") String code);
 }
