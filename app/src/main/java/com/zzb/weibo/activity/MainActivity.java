@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.zzb.weibo.R;
-import com.zzb.weibo.data.AccessTokenKeeper;
 import com.zzb.weibo.http.api.WeiBoApi;
 import com.zzb.weibo.http.base.RetrofitHelper;
 import com.zzb.weibo.model.StatusList;
@@ -20,7 +19,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RetrofitHelper.getApi(WeiBoApi.class).getFriendsTimeLine(AccessTokenKeeper.readAccessToken(this).token).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<StatusList>() {
+        RetrofitHelper.getApi(WeiBoApi.class).getFriendsTimeLine().subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<StatusList>() {
 
             @Override
             public void onCompleted() {

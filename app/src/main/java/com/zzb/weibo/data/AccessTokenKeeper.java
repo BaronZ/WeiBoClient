@@ -2,6 +2,7 @@ package com.zzb.weibo.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.zzb.weibo.model.AccessToken;
@@ -14,10 +15,20 @@ import java.util.concurrent.TimeUnit;
 public class AccessTokenKeeper {
     private static final String TAG = AccessTokenKeeper.class.getSimpleName();
     private static final String PREFERENCES_NAME = "AUTH_ACCESS_TOKEN";
-
     private static final String KEY_ACCESS_TOKEN  = "KEY_ACCESS_TOKEN";
     private static final String KEY_EXPIRES_TIME    = "KEY_EXPIRES_TIME";
-
+    private static String ACCESS_TOKEN = "";
+    /**
+     * 获取AccessToken
+     *@author ZZB
+     *created at 2015/9/6 14:30
+     */
+    public static String getAccessToken(Context context){
+        if(TextUtils.isEmpty(ACCESS_TOKEN)){
+            ACCESS_TOKEN = readAccessToken(context).token;
+        }
+        return ACCESS_TOKEN;
+    }
     /**
      * 保存 Token 对象到 SharedPreferences。
      *
