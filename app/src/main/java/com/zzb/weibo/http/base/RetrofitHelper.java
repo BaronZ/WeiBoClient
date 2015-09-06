@@ -11,20 +11,15 @@ import retrofit.RestAdapter;
  * Created by ZZB on 2015/9/1.
  */
 public class RetrofitHelper {
-    private static RestAdapter mWeiboRestAdapter = new RestAdapter.Builder().setEndpoint(HttpConfig.END_POINT).build();
+    private static RestAdapter mWeiboRestAdapter;
 
     private static RestAdapter getWeiboRestAdapterAdapter(){
         if(mWeiboRestAdapter == null){
-            RequestInterceptor tokenInterceptor = new RequestInterceptor() {
-                @Override
-                public void intercept(RequestInterceptor.RequestFacade request) {
-                    String token = AccessTokenKeeper.readAccessToken(MyApplication.APP_CONTEXT).token;
-                    request.addHeader("access_token", token);
-                }
+            RequestInterceptor tokenInterceptor = request -> {
+                String token = AccessTokenKeeper.getAccessToken(MyApplication.APP_CONTEXT);
+                request.addHeader("Authorization", "OAuth2 " + token);
             };
-            mWeiboRestAdapter = new RestAdapter.Builder().setEndpoint(HttpConfig.END_POINT)
-//                    .setRequestInterceptor(tokenInterceptor)
-                    .build();
+            mWeiboRestAdapter = new RestAdapter.Builder().setEndpoint(HttpConfig.END_POINT).setRequestInterceptor(tokenInterceptor).build();
 
         }
         return mWeiboRestAdapter;
