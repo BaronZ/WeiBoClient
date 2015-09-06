@@ -1,5 +1,6 @@
 package com.zzb.weibo.http.base;
 
+import com.zzb.weibo.BuildConfig;
 import com.zzb.weibo.MyApplication;
 import com.zzb.weibo.data.AccessTokenKeeper;
 
@@ -13,8 +14,8 @@ import retrofit.RestAdapter;
 public class RetrofitHelper {
     private static RestAdapter mWeiboRestAdapter;
 
-    private static RestAdapter getWeiboRestAdapterAdapter(){
-        if(mWeiboRestAdapter == null){
+    private static RestAdapter getWeiboRestAdapterAdapter() {
+        if (mWeiboRestAdapter == null) {
             initWeiBoRestAdapter();
         }
         return mWeiboRestAdapter;
@@ -25,15 +26,20 @@ public class RetrofitHelper {
             String token = AccessTokenKeeper.getAccessToken(MyApplication.APP_CONTEXT);
             request.addHeader("Authorization", "OAuth2 " + token);
         };
-        mWeiboRestAdapter = new RestAdapter.Builder().setEndpoint(HttpConfig.END_POINT).setRequestInterceptor(tokenInterceptor).build();
+        mWeiboRestAdapter = new RestAdapter.Builder()
+                .setEndpoint(HttpConfig.END_POINT)
+                .setRequestInterceptor(tokenInterceptor)
+                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
+                .build();
     }
 
     //自定义end point的api
-    public static <T> T getApi(String endPoint, Class<T> tClass){
+    public static <T> T getApi(String endPoint, Class<T> tClass) {
         return new RestAdapter.Builder().setEndpoint(endPoint).build().create(tClass);
     }
+
     //默认end point是HttpConfig.END_POINT
-    public static <T> T getApi(Class<T> tClass){
+    public static <T> T getApi(Class<T> tClass) {
         T api = getWeiboRestAdapterAdapter().create(tClass);
         return api;
     }
