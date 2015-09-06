@@ -12,9 +12,9 @@ public class Status {
     @SerializedName("created_at")
     public String createdAt;//微博创建时间
     @Expose
-    public int id;//微博ID
+    public long id;//微博ID
     @Expose
-    public int mid;//微博MID
+    public long mid;//微博MID
     @Expose
     public String idstr;//字符串型的微博ID
     @Expose

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class User {
     @Expose
-    public int id;//用户UID
+    public long id;//用户UID
     @Expose
     public String idstr;//字符串型的用户UID
     @Expose
