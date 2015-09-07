@@ -1,6 +1,7 @@
 package com.zzb.weibo.activity;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,8 +9,17 @@ import android.view.MenuItem;
 import com.zzb.weibo.R;
 import com.zzb.weibo.http.api.WeiBoApi;
 import com.zzb.weibo.http.base.RetrofitHelper;
+import com.zzb.weibo.model.Status;
 import com.zzb.weibo.model.StatusList;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -19,6 +29,31 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadWeibo();
+        postWeiboWithPic();
+    }
+
+    private void postWeiboWithPic() {
+        try {
+            String encodedWeibo = URLEncoder.encode("post weibo with pic", "UTF-8");
+            TypedFile file = new TypedFile("multipart/form-data", new File(Environment.getExternalStorageDirectory().getPath() + "/1.jpg"));
+            RetrofitHelper.getApi(WeiBoApi.class).postWeiboWithPic(encodedWeibo, file, new Callback<Status>() {
+                @Override
+                public void success(Status status, Response response) {
+                    Log.d(TAG, "success " + status);
+                }
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.e(TAG, "failure ", error);
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void loadWeibo() {
         RetrofitHelper.getApi(WeiBoApi.class).getFriendsTimeLine().subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<StatusList>() {
 
             @Override

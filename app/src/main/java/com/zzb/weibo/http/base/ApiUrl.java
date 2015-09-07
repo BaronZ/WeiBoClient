@@ -15,5 +15,9 @@ public class ApiUrl {
     public static class WeiBo{
         //获取当前登录用户及其所关注用户的最新微博
         public static final String FRIENDS_TIMELINE = "/statuses/friends_timeline.json";
+        //发布带图片的微博
+        public static final String POST_WEIBO_WITH_PIC = "/statuses/upload.json";
+        //发布纯文字的微博
+        public static final String POST_WEIBO = "/statuses/update.json ";
     }
 }
