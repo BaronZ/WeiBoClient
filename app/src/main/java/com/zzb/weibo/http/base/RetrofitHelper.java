@@ -1,8 +1,11 @@
 package com.zzb.weibo.http.base;
 
+import com.squareup.okhttp.OkHttpClient;
 import com.zzb.weibo.BuildConfig;
 import com.zzb.weibo.MyApplication;
 import com.zzb.weibo.data.AccessTokenKeeper;
+
+import java.util.concurrent.TimeUnit;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -32,10 +35,13 @@ public class RetrofitHelper {
                 .build();
     }
     private static RestAdapter.Builder getBaseRestAdapterBuilder(String endPoint){
-        //TODO init OKClient
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(HttpConfig.CONNECTION_TIMEOUT_IN_SECOND, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(HttpConfig.READ_TIMEOUT_IN_SECOND, TimeUnit.SECONDS);
+        okHttpClient.setWriteTimeout(HttpConfig.WRITE_TIMEOUT_IN_SECOND, TimeUnit.SECONDS);
         return new RestAdapter.Builder()
                 .setEndpoint(endPoint)
-                .setClient(new OkClient())
+                .setClient(new OkClient(okHttpClient))
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE);
     }
     //自定义end point的api
