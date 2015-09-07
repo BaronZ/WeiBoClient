@@ -27,17 +27,20 @@ public class RetrofitHelper {
             String token = AccessTokenKeeper.getAccessToken(MyApplication.APP_CONTEXT);
             request.addHeader("Authorization", "OAuth2 " + token);
         };
-        mWeiboRestAdapter = new RestAdapter.Builder()
-                .setEndpoint(HttpConfig.END_POINT)
-                .setClient(new OkClient())
+        mWeiboRestAdapter = getBaseRestAdapterBuilder(HttpConfig.END_POINT)
                 .setRequestInterceptor(tokenInterceptor)
-                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .build();
     }
-
+    private static RestAdapter.Builder getBaseRestAdapterBuilder(String endPoint){
+        //TODO init OKClient
+        return new RestAdapter.Builder()
+                .setEndpoint(endPoint)
+                .setClient(new OkClient())
+                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE);
+    }
     //自定义end point的api
     public static <T> T getApi(String endPoint, Class<T> tClass) {
-        return new RestAdapter.Builder().setEndpoint(endPoint).build().create(tClass);
+        return getBaseRestAdapterBuilder(endPoint).build().create(tClass);
     }
 
     //默认end point是HttpConfig.END_POINT
