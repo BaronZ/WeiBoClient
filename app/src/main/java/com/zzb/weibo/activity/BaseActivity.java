@@ -1,14 +1,15 @@
 package com.zzb.weibo.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
+import com.zzb.mvp.BaseMVPActivity;
 
 /**
+ * Activity基类
  * Created by ZZB on 2015/8/31.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends BaseMVPActivity {
 
     protected <T extends View> T $(int id){
         return (T) findViewById(id);

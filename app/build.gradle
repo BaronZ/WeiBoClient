@@ -49,6 +49,7 @@ dependencies {
     compile 'com.zzb.library:android-common:0.4.2'
     compile 'io.reactivex:rxandroid:0.25.0'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.zzb.mvp:mvp:0.1.0'
 }
 bugly {
     appId = BUGLY_APP_ID
