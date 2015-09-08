@@ -2,6 +2,7 @@ package com.zzb.weibo.activity;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +30,18 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initViews();
         loadWeibo();
         postWeiboWithPic();
+    }
+
+    private void initViews() {
+        Toolbar toolbar = $(R.id.toolbar);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        toolbar.setTitle("My Title");
+        toolbar.setSubtitle("Sub title");
+        setSupportActionBar(toolbar);
+//        toolbar.setNavigationIcon();
     }
 
     private void postWeiboWithPic() {
