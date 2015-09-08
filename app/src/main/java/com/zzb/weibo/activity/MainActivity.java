@@ -31,8 +31,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        loadWeibo();
-        postWeiboWithPic();
+
+//        loadWeibo();
+//        postWeiboWithPic();
     }
 
     private void initViews() {
