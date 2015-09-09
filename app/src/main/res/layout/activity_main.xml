@@ -18,6 +18,7 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CustomTabLayoutStyle"
             app:layout_scrollFlags="scroll|enterAlways"/>
 
     </android.support.design.widget.AppBarLayout>
@@ -30,7 +31,3 @@
 
 </android.support.design.widget.CoordinatorLayout>
 
-    <!--app:tabIndicatorColor="@color/medium_blue"-->
-    <!--app:tabSelectedTextColor="@color/medium_blue"-->
-    <!--app:tabTextAppearance="@style/TabText"-->
-    <!--app:tabTextColor="@color/gray_text"-->
