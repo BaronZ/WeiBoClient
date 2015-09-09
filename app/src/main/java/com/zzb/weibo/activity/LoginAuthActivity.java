@@ -2,6 +2,7 @@ package com.zzb.weibo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,6 +27,16 @@ public class LoginAuthActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+        initViews();
+
+        //请求用户授权Token
+        mWebView.loadUrl(ApiUrl.Auth.AUTH_URL);
+    }
+
+    private void initViews() {
+        Toolbar toolbar = $(R.id.toolbar);
+        toolbar.setTitle("授权登录");
+        setSupportActionBar(toolbar);
         mWebView = $(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient() {
@@ -36,9 +47,8 @@ public class LoginAuthActivity extends BaseActivity {
                 getAccessToken(code);
                 return true;
             }
+
         });
-        //请求用户授权Token
-        mWebView.loadUrl(ApiUrl.Auth.AUTH_URL);
     }
 
     private void getAccessToken(String code) {
