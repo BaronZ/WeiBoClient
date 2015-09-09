@@ -15,7 +15,7 @@ import com.zzb.weibo.R;
  */
 public class MyHomePageFragment extends BaseFragment {
     private RecyclerView mRecyclerView;
-    public MyHomePageFragment getInstance(){
+    public static MyHomePageFragment getInstance(){
         return new MyHomePageFragment();
     }
     @Nullable
