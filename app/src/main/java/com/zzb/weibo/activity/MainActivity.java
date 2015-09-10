@@ -37,6 +37,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        loadWeibo();
+        //有网络，加载网络
+        //加载完之后，删除数据库中存在的from id begin to id end;
+        //再插入网络加载到的数据
+
+        //如果没有网络，无法刷新
+        //加载更多时，查数据库，以id排序拿，直至无数据
     }
 
     private void initViews() {
