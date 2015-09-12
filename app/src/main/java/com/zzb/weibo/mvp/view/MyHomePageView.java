@@ -13,6 +13,7 @@ public interface MyHomePageView extends MvpView {
 
     void showLoading();
     void hideLoading();
-    void onLoadStatusesSuccess(List<Status> statuses);
+    void onRefreshStatusesSuccess(List<Status> statuses);
+    void onLoadMoreStatusesSuccess(List<Status> statuses);
     void onLoadStatusesFailed();
 }

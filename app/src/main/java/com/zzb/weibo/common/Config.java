@@ -13,9 +13,9 @@ public class Config {
     //    /**Bugly监控, bugly代码可以注释*/
     public static final String BUGLY_APP_ID = BuildConfig.BUGLY_APP_ID;
     public static final String BUGLY_APP_KEY = BuildConfig.BUGLY_APP_KEY;
+    //一次加载微博的条数
+    public static final int LOAD_WEIBO_SIZE = 20;
 
 
-//    public static String getAccessTokenUrl(){
-////        return
-//    }
+
 }

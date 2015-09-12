@@ -14,7 +14,6 @@ import com.zzb.weibo.adapter.MainPagerAdapter;
 import com.zzb.weibo.http.api.WeiBoApi;
 import com.zzb.weibo.http.base.RetrofitHelper;
 import com.zzb.weibo.model.Status;
-import com.zzb.weibo.model.StatusList;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -24,8 +23,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -37,7 +34,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        loadWeibo();
         //有网络，加载网络
         //加载完之后，删除数据库中存在的from id begin to id end;
         //再插入网络加载到的数据
@@ -85,25 +81,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private void loadWeibo() {
-        RetrofitHelper.getApi(WeiBoApi.class).getFriendsTimeLine().subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<StatusList>() {
 
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "onError ", e);
-            }
-
-            @Override
-            public void onNext(StatusList statuses) {
-                Log.i(TAG, "onNext " + statuses.statuses.size());
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

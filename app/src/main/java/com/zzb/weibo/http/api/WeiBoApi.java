@@ -8,6 +8,7 @@ import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
+import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 import rx.Observable;
 
@@ -19,12 +20,13 @@ public interface WeiBoApi {
 
 
     /**
-     * 获取当前登录用户及其所关注用户的最新微博
-     *@author ZZB
+     * 获取当前登录用户及其所关注用户的微博，lastId之前count条微博
+     * @param lastId 若指定此参数，则返回ID小于或等于lastId的微博(即比lastId早的微博)，传入0获取最新微博。
+     * @param count 加载微博的条数
      *created at 2015/9/6 14:26
      */
     @GET(ApiUrl.WeiBo.FRIENDS_TIMELINE)
-    Observable<StatusList> getFriendsTimeLine();
+    Observable<StatusList> getFriendsTimeLine(@Query("max_id")long lastId, @Query("count")int count);
 
     /**
      * 上传带图片的微博
