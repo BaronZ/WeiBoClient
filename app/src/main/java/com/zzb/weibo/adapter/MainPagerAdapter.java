@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.zzb.weibo.fragment.HotStatusesFragment;
 import com.zzb.weibo.fragment.MyHomePageFragment;
 
 /**
@@ -17,7 +18,14 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MyHomePageFragment.getInstance();
+        switch (position) {
+            case 0:
+                return MyHomePageFragment.getInstance();
+            case 1:
+                return HotStatusesFragment.getInstance();
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -27,7 +35,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return "我的首页";
             case 1:
