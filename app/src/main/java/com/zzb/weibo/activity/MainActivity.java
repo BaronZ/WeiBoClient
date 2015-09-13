@@ -58,7 +58,6 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitle("My Title");
         toolbar.setSubtitle("Sub title");
         setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon();
     }
 
     private void postWeiboWithPic() {

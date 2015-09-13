@@ -33,7 +33,18 @@ public class BaseDao {
         return cursor;
     }
 
-
+    /**
+     *
+     * @param tableName
+     * @param projectionIn 需要返回的字段，null返回所有字段
+     * @param selection where语句, 不包含where关键字，eg id=? and age=?
+     * @param selectionArgs 对应where语句?的值 new String[]{String.valueOf(id), String.valueOf(age)}
+     * @param groupBy
+     * @param having
+     * @param sortOrder 升序降序 id desc
+     * @param limit 返回结果的数目
+     * @return
+     */
     protected Cursor query(String tableName, String[] projectionIn,
                            String selection, String[] selectionArgs, String groupBy,
                            String having, String sortOrder, String limit) {
@@ -83,9 +94,10 @@ public class BaseDao {
         this.delete(tableName, null, null);
     }
 
-    public void delete(String tableName, String whereClause, String[] whereArgs) {
+    public int delete(String tableName, String whereClause, String[] whereArgs) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        db.delete(tableName, whereClause, whereArgs);
+        int deleted = db.delete(tableName, whereClause, whereArgs);
+        return deleted;
     }
 
     public int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
