@@ -4,45 +4,38 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.zzb.weibo.fragment.HotStatusesFragment;
-import com.zzb.weibo.fragment.MyHomePageFragment;
+import com.zzb.library.utils.ListUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MainActivity的PagerAdapter
  * Created by ZZB on 2015/9/9.
  */
 public class MainPagerAdapter extends FragmentPagerAdapter {
+    private List<Fragment> mFragments = new ArrayList<>();
+    private List<String> mTitles = new ArrayList<>();
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
     }
-
+    public MainPagerAdapter addFragment(Fragment fragment, String title){
+        mFragments.add(fragment);
+        mTitles.add(title);
+        return this;
+    }
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return MyHomePageFragment.getInstance();
-            case 1:
-                return HotStatusesFragment.getInstance();
-            default:
-                return null;
-        }
+        return mFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return ListUtils.getSize(mFragments);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "我的首页";
-            case 1:
-                return "热门微博";
-            default:
-                return super.getPageTitle(position);
-        }
-
+        return mTitles.get(position);
     }
 }

@@ -48,8 +48,8 @@ public class MyHomePageFragment extends BaseFragment implements MyHomePageView{
     private void initViews() {
         mRecyclerView = $(R.id.recycler_view);
         mAdapter = new MyHomePageAdapter();
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(mRecyclerView.getContext());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         mRecyclerView.setAdapter(mAdapter);
     }
 

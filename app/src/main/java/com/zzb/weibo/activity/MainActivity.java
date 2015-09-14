@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import com.zzb.weibo.R;
 import com.zzb.weibo.adapter.MainPagerAdapter;
+import com.zzb.weibo.fragment.HotStatusesFragment;
+import com.zzb.weibo.fragment.MyHomePageFragment;
 import com.zzb.weibo.http.api.WeiBoApi;
 import com.zzb.weibo.http.base.RetrofitHelper;
 import com.zzb.weibo.model.Status;
@@ -46,10 +48,12 @@ public class MainActivity extends BaseActivity {
         initToolbar();
         mViewPager = $(R.id.viewpager);
         mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter.addFragment(MyHomePageFragment.getInstance(), "我的首页");
+        mPagerAdapter.addFragment(HotStatusesFragment.getInstance(), "热门微博");
         mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+//        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
     private void initToolbar() {

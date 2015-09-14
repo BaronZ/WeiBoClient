@@ -87,12 +87,13 @@ public class MyHomePageAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        Status status = mData.get(position);
-        if(status.retweetedStatus != null){
-            return status.retweetedStatus.originalPic == null ? ViewType.NORMAL_TEXT_WEIBO : ViewType.NORMAL_PICS_WEIBO;
-        }else{
-            return status.originalPic == null ? ViewType.NORMAL_TEXT_WEIBO : ViewType.NORMAL_PICS_WEIBO;
-        }
+//        Status status = mData.get(position);
+//        if(status.retweetedStatus != null){
+//            return status.retweetedStatus.originalPic == null ? ViewType.NORMAL_TEXT_WEIBO : ViewType.NORMAL_PICS_WEIBO;
+//        }else{
+//            return status.originalPic == null ? ViewType.NORMAL_TEXT_WEIBO : ViewType.NORMAL_PICS_WEIBO;
+//        }
+        return ViewType.NORMAL_PICS_WEIBO;
     }
 
     private static class NormalViewHolder extends RecyclerView.ViewHolder{
