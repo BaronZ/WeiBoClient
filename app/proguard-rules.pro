@@ -17,3 +17,8 @@
 #}
 #keep住源文件及行号
 -keepattributes SourceFile,LineNumberTable
+#retrofit
+-dontwarn retrofit.**
+-keep class retrofit.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
