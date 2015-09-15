@@ -3,6 +3,8 @@ package com.zzb.weibo.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * 微博内容
  * Created by ZZB on 2015/8/30.
@@ -40,6 +42,8 @@ public class Status {
     @Expose
     @SerializedName("original_pic")
     public String originalPic;//原始图片地址，没有时不返回此字段
+    @SerializedName("pic_urls")
+    public List<ImageUrl> picUrls;
     @Expose
     public Geo geo;//地理信息字段
     @Expose
