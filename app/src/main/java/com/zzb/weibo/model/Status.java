@@ -1,7 +1,10 @@
 package com.zzb.weibo.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.zzb.weibo.common.WeiBoTimeUtils;
 
 import java.util.List;
 
@@ -69,5 +72,13 @@ public class Status {
     public Object picIds;//微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
     @Expose
     public Object[] ad;//微博流内的推广微博ID
+
+    private String friendlyTime;
+    public String getFriendlyTime(){
+        if(TextUtils.isEmpty(friendlyTime)){
+            friendlyTime = WeiBoTimeUtils.getFriendlyTime(createdAt);
+        }
+        return friendlyTime;
+    }
 
 }

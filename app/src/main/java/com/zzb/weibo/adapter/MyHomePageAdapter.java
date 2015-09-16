@@ -55,7 +55,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Log.d(TAG, "onCreateViewHolder FORWARD_TEXT_WEIBO");
                 itemView = inflater.inflate(R.layout.rv_repost_text_weibo, parent, false);
                 holder = new ForwardViewHolder(itemView);
-                holder.mRvPics.setVisibility(View.GONE);
+//                holder.mRvPics.setVisibility(View.GONE);
                 break;
             case ViewType.FORWARD_PICS_WEIBO:
             case ViewType.FORWARD_PIC_WEIBO:
@@ -106,7 +106,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void populateBaseViewHolder(int position, NormalViewHolder baseViewHolder) {
         Status status = mData.get(position);
         baseViewHolder.mTvUserName.setText(status.user.name);
-        baseViewHolder.mTvTime.setText(status.createdAt);
+        baseViewHolder.mTvTime.setText(status.getFriendlyTime());
 //        baseViewHolder.mTvStatus.setText();
     }
 
