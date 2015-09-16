@@ -5,4 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_auth">AuthActivity</string>
+
+    <string name="fab_behavior">com.zzb.weibo.widget.behavior.ScrollAwareFABBehavior</string>
 </resources>

@@ -2,12 +2,14 @@ package com.zzb.weibo.activity;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.zzb.weibo.R;
 import com.zzb.weibo.adapter.MainPagerAdapter;
@@ -26,7 +28,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener{
     private static final String TAG = MainActivity.class.getSimpleName();
     private ViewPager mViewPager;
     private MainPagerAdapter mPagerAdapter;
@@ -102,6 +104,7 @@ public class MainActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Snackbar.make(item.getActionView(), "Hello Snackbar", Snackbar.LENGTH_LONG).show();
             return true;
         }
 
@@ -110,5 +113,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected String getClassName() {
         return getClass().getSimpleName();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Snackbar.make(v, "Hello Snackbar", Snackbar.LENGTH_LONG).show();
     }
 }
