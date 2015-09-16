@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+import com.zzb.library.utils.DisplayUtils;
 import com.zzb.library.utils.ListUtils;
 import com.zzb.weibo.model.ImageUrl;
 
@@ -19,12 +20,20 @@ public class StatusImageAdapter extends RecyclerView.Adapter<StatusImageAdapter.
 
     private List<ImageUrl> mUrls;
     private Activity mActivity;
+    private static int IMAGE_SIZE;
     public StatusImageAdapter(Activity activity){
         //用Activity做参数，Glide能更好地控制生命周期
         mActivity = activity;
     }
     public void setUrls(List<ImageUrl> urls){
         mUrls = urls;
+        int screenWidth = DisplayUtils.getScreenWidth();
+        int imageNum = urls.size();
+        if(imageNum == 1){
+            IMAGE_SIZE = screenWidth / 2;
+        }else{
+            IMAGE_SIZE = screenWidth / 3;
+        }
     }
     @Override
     public StatusImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,8 +45,11 @@ public class StatusImageAdapter extends RecyclerView.Adapter<StatusImageAdapter.
     @Override
     public void onBindViewHolder(StatusImageAdapter.ViewHolder holder, int position) {
         String url = mUrls.get(position).getMiddleUrl();
+//        String url = mUrls.get(position).thumbUrl;
         ImageView iv = (ImageView) holder.itemView;
-        Glide.with(mActivity).load(url).into(iv);
+        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        Glide.with(mActivity).load(url).override(IMAGE_SIZE, IMAGE_SIZE).crossFade().into(iv);
+        Picasso.with(mActivity).load(url).resize(IMAGE_SIZE, IMAGE_SIZE).into(iv);
     }
 
     @Override
