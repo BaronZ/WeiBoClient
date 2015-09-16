@@ -46,7 +46,7 @@
         android:layout_below="@+id/tv_status"
         android:id="@+id/rv_pics"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
+        android:layout_height="300dp"
         />
     <include
         android:layout_below="@+id/rv_pics"

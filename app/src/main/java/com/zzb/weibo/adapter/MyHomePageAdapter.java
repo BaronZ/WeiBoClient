@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zzb.library.utils.DisplayUtils;
 import com.zzb.library.utils.ListUtils;
 import com.zzb.weibo.R;
 import com.zzb.weibo.model.Status;
@@ -24,7 +26,13 @@ import java.util.List;
 public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = MyHomePageAdapter.class.getSimpleName();
     private List<Status> mData;
+    private static int SCREEN_SIZE;
+    private static int ROW_HEIGHT;
 
+    public MyHomePageAdapter(){
+        SCREEN_SIZE = DisplayUtils.getScreenWidth();
+        ROW_HEIGHT = SCREEN_SIZE / 3;
+    }
     public void setData(List<Status> data) {
         mData = data;
     }
@@ -46,10 +54,13 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Log.d(TAG, "onCreateViewHolder NORMAL_PICS_WEIBO");
                 itemView = inflater.inflate(R.layout.rv_normal_pics_weibo, parent, false);
                 holder = new NormalViewHolder(itemView);
-                GridLayoutManager normalManager = new GridLayoutManager(context, viewType == ViewType.NORMAL_PIC_WEIBO ? 1 : 3);
+                GridLayoutManager normalManager = new GridLayoutManager(context, 3);
                 holder.mRvPics.setLayoutManager(normalManager);
                 StatusImageAdapter normalAdapter = new StatusImageAdapter((Activity) context);
                 holder.mRvPics.setAdapter(normalAdapter);
+                int rvHeight = getRvHeight(3);
+                RelativeLayout.LayoutParams nLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, rvHeight);
+                holder.mRvPics.setLayoutParams(nLp);
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
                 Log.d(TAG, "onCreateViewHolder FORWARD_TEXT_WEIBO");
@@ -62,15 +73,28 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Log.d(TAG, "onCreateViewHolder FORWARD_PICS_WEIBO");
                 itemView = inflater.inflate(R.layout.rv_repost_pics_weibo, parent, false);
                 holder = new ForwardViewHolder(itemView);
-                GridLayoutManager forwardManager = new GridLayoutManager(context, viewType == ViewType.FORWARD_PIC_WEIBO ? 1 : 3);
+                GridLayoutManager forwardManager = new GridLayoutManager(context, 3);
                 StatusImageAdapter forwardAdapter = new StatusImageAdapter((Activity) context);
                 holder.mRvPics.setLayoutManager(forwardManager);
                 holder.mRvPics.setAdapter(forwardAdapter);
+                int fRvHeight = getRvHeight(3);
+                RelativeLayout.LayoutParams fLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, fRvHeight);
+                holder.mRvPics.setLayoutParams(fLp);
                 break;
         }
         return holder;
     }
-
+    private int getRvHeight(int imgNum){
+        int rvHeight = 0;
+        if(imgNum <= 3){
+            rvHeight = ROW_HEIGHT;
+        }else if(imgNum <= 6){
+            rvHeight = 2 * ROW_HEIGHT;
+        }else{
+            rvHeight = 3 * ROW_HEIGHT;
+        }
+        return rvHeight;
+    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         int viewType = getItemViewType(position);
@@ -78,6 +102,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         populateBaseViewHolder(position, baseViewHolder);
         Status status = mData.get(position);
         Status retweetedStatus = status.retweetedStatus;
+        baseViewHolder.mTvStatus.setText(status.text);
         switch (viewType) {
             case ViewType.NORMAL_TEXT_WEIBO:
                 NormalViewHolder nTextHolder = (NormalViewHolder) viewHolder;
