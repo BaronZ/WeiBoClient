@@ -78,10 +78,10 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         populateBaseViewHolder(position, baseViewHolder);
         Status status = mData.get(position);
         Status retweetedStatus = status.retweetedStatus;
+        baseViewHolder.mTvStatus.setText(status.text);
         switch (viewType) {
             case ViewType.NORMAL_TEXT_WEIBO:
                 NormalViewHolder nTextHolder = (NormalViewHolder) viewHolder;
-
                 break;
             case ViewType.NORMAL_PICS_WEIBO:
             case ViewType.NORMAL_PIC_WEIBO:
