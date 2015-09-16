@@ -1,7 +1,5 @@
 package com.zzb.weibo.model;
 
-import android.text.TextUtils;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.zzb.weibo.common.WeiBoTimeUtils;
@@ -73,12 +71,12 @@ public class Status {
     @Expose
     public Object[] ad;//微博流内的推广微博ID
 
-    private String friendlyTime;
+//    private String friendlyTime;
     public String getFriendlyTime(){
-        if(TextUtils.isEmpty(friendlyTime)){
-            friendlyTime = WeiBoTimeUtils.getFriendlyTime(createdAt);
-        }
-        return friendlyTime;
+//        if(TextUtils.isEmpty(friendlyTime)){//加成员变量会导致时间只获取一次不刷新
+        return WeiBoTimeUtils.getFriendlyTime(createdAt);
+//        }
+//        return friendlyTime;
     }
 
 }
