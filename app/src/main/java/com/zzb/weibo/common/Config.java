@@ -3,6 +3,7 @@ package com.zzb.weibo.common;
 import com.zzb.weibo.BuildConfig;
 
 /**
+ * 一些配置内容
  * Created by ZZB on 2015/8/31.
  */
 public class Config {
@@ -15,7 +16,6 @@ public class Config {
     public static final String BUGLY_APP_KEY = BuildConfig.BUGLY_APP_KEY;
     //一次加载微博的条数
     public static final int LOAD_WEIBO_SIZE = 20;
-
 
 
 }
