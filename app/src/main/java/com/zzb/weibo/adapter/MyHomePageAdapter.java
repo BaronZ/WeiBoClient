@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zzb.library.utils.DisplayUtils;
@@ -58,9 +58,6 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 holder.mRvPics.setLayoutManager(normalManager);
                 StatusImageAdapter normalAdapter = new StatusImageAdapter((Activity) context);
                 holder.mRvPics.setAdapter(normalAdapter);
-                int rvHeight = getRvHeight(3);
-                RelativeLayout.LayoutParams nLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, rvHeight);
-                holder.mRvPics.setLayoutParams(nLp);
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
                 Log.d(TAG, "onCreateViewHolder FORWARD_TEXT_WEIBO");
@@ -77,9 +74,6 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 StatusImageAdapter forwardAdapter = new StatusImageAdapter((Activity) context);
                 holder.mRvPics.setLayoutManager(forwardManager);
                 holder.mRvPics.setAdapter(forwardAdapter);
-                int fRvHeight = getRvHeight(3);
-                RelativeLayout.LayoutParams fLp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, fRvHeight);
-                holder.mRvPics.setLayoutParams(fLp);
                 break;
         }
         return holder;
@@ -114,6 +108,9 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 nAdapter.setUrls(status.picUrls);
                 nAdapter.notifyDataSetChanged();
                 NormalViewHolder nPicHolder = (NormalViewHolder) viewHolder;
+                int rvHeight = getRvHeight(ListUtils.getSize(status.picUrls));
+                LinearLayout.LayoutParams nLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, rvHeight);
+                baseViewHolder.mRvPics.setLayoutParams(nLp);
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
                 ForwardViewHolder fTextHolder = (ForwardViewHolder) viewHolder;
@@ -124,6 +121,9 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 fAdapter.setUrls(retweetedStatus.picUrls);
                 fAdapter.notifyDataSetChanged();
                 ForwardViewHolder fPicHolder = (ForwardViewHolder) viewHolder;
+                int fRvHeight = getRvHeight(ListUtils.getSize(retweetedStatus.picUrls));
+                LinearLayout.LayoutParams fLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, fRvHeight);
+                baseViewHolder.mRvPics.setLayoutParams(fLp);
                 break;
         }
     }
@@ -187,8 +187,6 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView mTvUserName, mTvTime, mTvFrom, mTvStatus, mTvComment, mTvForward, mTvGood;
         ImageView mIvIcon;
         RecyclerView mRvPics;
-
-
     }
 
     private static class ForwardViewHolder extends NormalViewHolder {
