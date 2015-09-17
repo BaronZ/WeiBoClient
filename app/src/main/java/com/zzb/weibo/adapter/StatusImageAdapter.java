@@ -14,6 +14,7 @@ import com.zzb.weibo.model.ImageUrl;
 import java.util.List;
 
 /**
+ * 微博图片
  * Created by ZZB on 2015/9/15.
  */
 public class StatusImageAdapter extends RecyclerView.Adapter<StatusImageAdapter.ViewHolder> {
@@ -47,9 +48,9 @@ public class StatusImageAdapter extends RecyclerView.Adapter<StatusImageAdapter.
         String url = mUrls.get(position).getMiddleUrl();
 //        String url = mUrls.get(position).thumbUrl;
         ImageView iv = (ImageView) holder.itemView;
-        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //        Glide.with(mActivity).load(url).override(IMAGE_SIZE, IMAGE_SIZE).crossFade().into(iv);
-        Picasso.with(mActivity).load(url).resize(IMAGE_SIZE, IMAGE_SIZE).into(iv);
+        Picasso.with(mActivity).load(url).resize(IMAGE_SIZE, IMAGE_SIZE).centerCrop().into(iv);
     }
 
     @Override

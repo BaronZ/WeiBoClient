@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.zzb.library.picasso.transformation.RoundedTransformation;
 import com.zzb.library.utils.DisplayUtils;
 import com.zzb.library.utils.ListUtils;
 import com.zzb.weibo.R;
@@ -154,11 +156,14 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void populateBaseViewHolder(int position, NormalViewHolder baseViewHolder) {
+    private void populateBaseViewHolder(int position, NormalViewHolder holder) {
         Status status = mData.get(position);
-        baseViewHolder.mTvUserName.setText(status.user.name);
-        baseViewHolder.mTvTime.setText(status.getFriendlyTime());
-        baseViewHolder.mTvStatus.setText(status.text);
+        holder.mTvUserName.setText(status.user.name);
+        holder.mTvTime.setText(status.getFriendlyTime());
+        holder.mTvStatus.setText(status.text);
+        Context context = holder.mIvIcon.getContext();
+
+        Picasso.with(context).load(status.user.avatarLarge).transform(new RoundedTransformation()).into(holder.mIvIcon);
     }
 
     @Override
@@ -216,8 +221,8 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mTvFrom = $(R.id.tv_from);
             mTvStatus = $(R.id.tv_status);
             mRvPics = $(R.id.rv_pics);
+            mIvIcon = $(R.id.iv_icon);
         }
-
         TextView mTvUserName, mTvTime, mTvFrom, mTvStatus, mTvComment, mTvForward, mTvGood;
         ImageView mIvIcon;
         RecyclerView mRvPics;

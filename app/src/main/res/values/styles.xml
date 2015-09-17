@@ -23,4 +23,8 @@
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="textAllCaps">true</item>
     </style>
+    <style name="timeline_icon_style">
+        <item name="android:layout_height">@dimen/list_icon_size</item>
+        <item name="android:layout_width">@dimen/list_icon_size</item>
+    </style>
 </resources>

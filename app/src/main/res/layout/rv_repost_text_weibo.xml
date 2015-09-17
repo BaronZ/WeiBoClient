@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_card">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_card">
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
+        style="@style/timeline_icon_style"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/iv_icon"
-        tools:text="Baron89"
-        />
+        tools:text="Baron89" />
 
     <TextView
         android:id="@+id/tv_time"
@@ -25,8 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_user_name"
         android:layout_toRightOf="@+id/iv_icon"
-        tools:text="10分钟前"
-        />
+        tools:text="10分钟前" />
 
     <TextView
         android:id="@+id/tv_from"
@@ -34,20 +31,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_user_name"
         android:layout_toRightOf="@+id/tv_time"
-        tools:text="来自 RealWB"
-        />
+        tools:text="来自 RealWB" />
 
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_icon"
-        tools:text="我是微博内容我是微博内容我是微博内容我是微博内容我是微博内容"
-        />
+        tools:text="我是微博内容我是微博内容我是微博内容我是微博内容我是微博内容" />
 
     <include
         layout="@layout/layout_comment_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_status"/>
+        android:layout_below="@+id/tv_status" />
 </RelativeLayout>
