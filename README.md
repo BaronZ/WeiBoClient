@@ -8,7 +8,7 @@ Material Design
 ####网络
 OKHttp, Retrofit
 ####图片加载  
-Glide
+~~Glide~~  Picasso
 ####其他技术
 RxJava, lambda表达式 
 
