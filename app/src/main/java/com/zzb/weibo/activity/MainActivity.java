@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        findViewById(R.id.fab).setOnClickListener(v ->{Snackbar.make(v, "Hello Snackbar", Snackbar.LENGTH_LONG).show();});
+        findViewById(R.id.fab).setOnClickListener(this);
         //有网络，加载网络
         //加载完之后，删除数据库中存在的from id begin to id end;
         //再插入网络加载到的数据
@@ -105,7 +105,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Snackbar.make(item.getActionView(), "Hello Snackbar", Snackbar.LENGTH_LONG).show();
             return true;
         }
 
