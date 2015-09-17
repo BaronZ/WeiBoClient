@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_icon"
-        tools:text="Baron89"
-        />
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_user_name"
-        android:layout_toRightOf="@+id/iv_icon"
-        tools:text="10分钟前"
-        />
-    <TextView
-        android:id="@+id/tv_from"
-        android:layout_below="@+id/tv_user_name"
-        android:layout_toRightOf="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="来自 RealWB"
-        />
-
-    <TextView
-        android:id="@+id/tv_status"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_icon"
-        tools:text="我是微博内容我是微博内容我是微博内容我是微博内容我是微博内容"
-        />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_icon"
+            tools:text="Baron89" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toRightOf="@+id/iv_icon"
+            tools:text="10分钟前" />
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toRightOf="@+id/tv_time"
+            tools:text="来自 RealWB" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_icon"
+            tools:text="我是微博内容我是微博内容我是微博内容我是微博内容我是微博内容" />
+
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/tv_status"
         android:id="@+id/rv_pics"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
-        />
+        android:layout_height="wrap_content" />
+
     <include
-        android:layout_below="@+id/rv_pics"
+        layout="@layout/layout_comment_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/layout_comment_bar"/>
-</RelativeLayout>
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.zzb.library.utils.DisplayUtils;
 import com.zzb.library.utils.ListUtils;
 import com.zzb.weibo.R;
 import com.zzb.weibo.model.Status;
@@ -24,6 +25,13 @@ import java.util.List;
 public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = MyHomePageAdapter.class.getSimpleName();
     private List<Status> mData;
+    private static int SCREEN_SIZE;
+    private static int ROW_HEIGHT;
+
+    public MyHomePageAdapter() {
+        SCREEN_SIZE = DisplayUtils.getScreenWidth();
+        ROW_HEIGHT = SCREEN_SIZE / 3;
+    }
 
     public void setData(List<Status> data) {
         mData = data;
@@ -37,38 +45,77 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         LayoutInflater inflater = LayoutInflater.from(context);
         switch (viewType) {
             case ViewType.NORMAL_TEXT_WEIBO:
-                Log.d(TAG, "onCreateViewHolder NORMAL_TEXT_WEIBO");
                 itemView = inflater.inflate(R.layout.rv_normal_text_weibo, parent, false);
                 holder = new NormalViewHolder(itemView);
                 break;
-            case ViewType.NORMAL_PICS_WEIBO:
-            case ViewType.NORMAL_PIC_WEIBO:
-                Log.d(TAG, "onCreateViewHolder NORMAL_PICS_WEIBO");
+            case ViewType.NORMAL_PIC_1_WEIBO:
+            case ViewType.NORMAL_PIC_3_WEIBO:
+            case ViewType.NORMAL_PIC_6_WEIBO:
+            case ViewType.NORMAL_PIC_9_WEIBO:
                 itemView = inflater.inflate(R.layout.rv_normal_pics_weibo, parent, false);
                 holder = new NormalViewHolder(itemView);
-                GridLayoutManager normalManager = new GridLayoutManager(context, viewType == ViewType.NORMAL_PIC_WEIBO ? 1 : 3);
+                GridLayoutManager normalManager = new GridLayoutManager(context, getRvSpanNum(viewType));
                 holder.mRvPics.setLayoutManager(normalManager);
                 StatusImageAdapter normalAdapter = new StatusImageAdapter((Activity) context);
                 holder.mRvPics.setAdapter(normalAdapter);
+                int rvHeight = getRvHeight(viewType);
+                LinearLayout.LayoutParams nLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, rvHeight);
+                holder.mRvPics.setLayoutParams(nLp);
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
-                Log.d(TAG, "onCreateViewHolder FORWARD_TEXT_WEIBO");
                 itemView = inflater.inflate(R.layout.rv_repost_text_weibo, parent, false);
                 holder = new ForwardViewHolder(itemView);
-//                holder.mRvPics.setVisibility(View.GONE);
                 break;
-            case ViewType.FORWARD_PICS_WEIBO:
-            case ViewType.FORWARD_PIC_WEIBO:
-                Log.d(TAG, "onCreateViewHolder FORWARD_PICS_WEIBO");
+            case ViewType.FORWARD_PIC_1_WEIBO:
+            case ViewType.FORWARD_PIC_3_WEIBO:
+            case ViewType.FORWARD_PIC_6_WEIBO:
+            case ViewType.FORWARD_PIC_9_WEIBO:
                 itemView = inflater.inflate(R.layout.rv_repost_pics_weibo, parent, false);
                 holder = new ForwardViewHolder(itemView);
-                GridLayoutManager forwardManager = new GridLayoutManager(context, viewType == ViewType.FORWARD_PIC_WEIBO ? 1 : 3);
+                GridLayoutManager forwardManager = new GridLayoutManager(context, getRvSpanNum(viewType));
                 StatusImageAdapter forwardAdapter = new StatusImageAdapter((Activity) context);
                 holder.mRvPics.setLayoutManager(forwardManager);
                 holder.mRvPics.setAdapter(forwardAdapter);
+                int fRvHeight = getRvHeight(viewType);
+                LinearLayout.LayoutParams fLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, fRvHeight);
+                holder.mRvPics.setLayoutParams(fLp);
                 break;
         }
         return holder;
+    }
+
+    //根据ViewType获取RecyclerView列数
+    private int getRvSpanNum(int viewType) {
+        switch (viewType) {
+            case ViewType.NORMAL_PIC_1_WEIBO:
+            case ViewType.FORWARD_PIC_1_WEIBO:
+                return 2;
+            default:
+                return 3;
+        }
+    }
+
+    //根据ViewType获取RecyclerView的高度
+    private int getRvHeight(int viewType) {
+        int rvHeight = 0;
+        switch (viewType) {
+            case ViewType.NORMAL_PIC_1_WEIBO:
+            case ViewType.NORMAL_PIC_3_WEIBO:
+            case ViewType.FORWARD_PIC_1_WEIBO:
+            case ViewType.FORWARD_PIC_3_WEIBO:
+                rvHeight = ROW_HEIGHT;
+                break;
+            case ViewType.NORMAL_PIC_6_WEIBO:
+            case ViewType.FORWARD_PIC_6_WEIBO:
+                rvHeight = 2 * ROW_HEIGHT;
+                break;
+            case ViewType.NORMAL_PIC_9_WEIBO:
+            case ViewType.FORWARD_PIC_9_WEIBO:
+                rvHeight = 3 * ROW_HEIGHT;
+                break;
+        }
+
+        return rvHeight;
     }
 
     @Override
@@ -83,8 +130,10 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case ViewType.NORMAL_TEXT_WEIBO:
                 NormalViewHolder nTextHolder = (NormalViewHolder) viewHolder;
                 break;
-            case ViewType.NORMAL_PICS_WEIBO:
-            case ViewType.NORMAL_PIC_WEIBO:
+            case ViewType.NORMAL_PIC_1_WEIBO:
+            case ViewType.NORMAL_PIC_3_WEIBO:
+            case ViewType.NORMAL_PIC_6_WEIBO:
+            case ViewType.NORMAL_PIC_9_WEIBO:
                 StatusImageAdapter nAdapter = (StatusImageAdapter) baseViewHolder.mRvPics.getAdapter();
                 nAdapter.setUrls(status.picUrls);
                 nAdapter.notifyDataSetChanged();
@@ -93,8 +142,10 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case ViewType.FORWARD_TEXT_WEIBO:
                 ForwardViewHolder fTextHolder = (ForwardViewHolder) viewHolder;
                 break;
-            case ViewType.FORWARD_PICS_WEIBO:
-            case ViewType.FORWARD_PIC_WEIBO:
+            case ViewType.FORWARD_PIC_1_WEIBO:
+            case ViewType.FORWARD_PIC_3_WEIBO:
+            case ViewType.FORWARD_PIC_6_WEIBO:
+            case ViewType.FORWARD_PIC_9_WEIBO:
                 StatusImageAdapter fAdapter = (StatusImageAdapter) baseViewHolder.mRvPics.getAdapter();
                 fAdapter.setUrls(retweetedStatus.picUrls);
                 fAdapter.notifyDataSetChanged();
@@ -107,7 +158,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Status status = mData.get(position);
         baseViewHolder.mTvUserName.setText(status.user.name);
         baseViewHolder.mTvTime.setText(status.getFriendlyTime());
-//        baseViewHolder.mTvStatus.setText();
+        baseViewHolder.mTvStatus.setText(status.text);
     }
 
     @Override
@@ -124,18 +175,26 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (imgNum == 0) {//无图
                 viewType = ViewType.FORWARD_TEXT_WEIBO;
             } else if (imgNum == 1) {//单图
-                viewType = ViewType.FORWARD_PIC_WEIBO;
-            } else {//多图
-                viewType = ViewType.FORWARD_PICS_WEIBO;
+                viewType = ViewType.FORWARD_PIC_1_WEIBO;
+            } else if (imgNum > 1 && imgNum < 4) {//2-3图
+                viewType = ViewType.FORWARD_PIC_3_WEIBO;
+            } else if (imgNum > 3 && imgNum < 7) {// 3-6图
+                viewType = ViewType.FORWARD_PIC_6_WEIBO;
+            } else if (imgNum > 6 && imgNum < 10) {//7-9图
+                viewType = ViewType.FORWARD_PIC_9_WEIBO;
             }
         } else {
             int imgNum = ListUtils.getSize(status.picUrls);
-            if (imgNum == 0) {
+            if (imgNum == 0) {//无图
                 viewType = ViewType.NORMAL_TEXT_WEIBO;
-            } else if (imgNum == 1) {
-                viewType = ViewType.NORMAL_PIC_WEIBO;
-            } else {
-                viewType = ViewType.NORMAL_PICS_WEIBO;
+            } else if (imgNum == 1) {//单图
+                viewType = ViewType.NORMAL_PIC_1_WEIBO;
+            } else if (imgNum > 1 && imgNum < 4) {//2-3图
+                viewType = ViewType.NORMAL_PIC_3_WEIBO;
+            } else if (imgNum > 3 && imgNum < 7) {// 3-6图
+                viewType = ViewType.NORMAL_PIC_6_WEIBO;
+            } else if (imgNum > 6 && imgNum < 10) {//7-9图
+                viewType = ViewType.NORMAL_PIC_9_WEIBO;
             }
         }
         return viewType;
@@ -162,8 +221,6 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView mTvUserName, mTvTime, mTvFrom, mTvStatus, mTvComment, mTvForward, mTvGood;
         ImageView mIvIcon;
         RecyclerView mRvPics;
-
-
     }
 
     private static class ForwardViewHolder extends NormalViewHolder {
@@ -176,10 +233,14 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static interface ViewType {
         int NORMAL_TEXT_WEIBO = 1;
-        int NORMAL_PIC_WEIBO = 2;//单图
-        int NORMAL_PICS_WEIBO = 3;//多图
-        int FORWARD_TEXT_WEIBO = 4;
-        int FORWARD_PIC_WEIBO = 5;
-        int FORWARD_PICS_WEIBO = 6;
+        int NORMAL_PIC_1_WEIBO = 2;//单图
+        int NORMAL_PIC_3_WEIBO = 3;//2-3图
+        int NORMAL_PIC_6_WEIBO = 4;//4-6图
+        int NORMAL_PIC_9_WEIBO = 5;//7-9图
+        int FORWARD_TEXT_WEIBO = 6;
+        int FORWARD_PIC_1_WEIBO = 7;
+        int FORWARD_PIC_3_WEIBO = 8;
+        int FORWARD_PIC_6_WEIBO = 9;
+        int FORWARD_PIC_9_WEIBO = 10;
     }
 }
