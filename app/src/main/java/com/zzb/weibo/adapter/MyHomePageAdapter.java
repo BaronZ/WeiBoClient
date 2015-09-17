@@ -161,8 +161,8 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.mTvUserName.setText(status.user.name);
         holder.mTvTime.setText(status.getFriendlyTime());
         holder.mTvStatus.setText(status.text);
+        holder.mTvFrom.setText("来自: " + status.getSource());
         Context context = holder.mIvIcon.getContext();
-
         Picasso.with(context).load(status.user.avatarLarge).transform(new RoundedTransformation()).into(holder.mIvIcon);
     }
 

@@ -79,4 +79,13 @@ public class Status {
 //        return friendlyTime;
     }
 
+    public String getSource(){
+        try{
+            return source.substring(source.indexOf(">")  + 1, source.lastIndexOf("<"));
+        }catch (Exception e){
+            e.printStackTrace();
+            return source;
+        }
+    }
+
 }
