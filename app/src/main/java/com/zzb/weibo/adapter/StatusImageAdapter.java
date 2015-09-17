@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.zzb.library.utils.DisplayUtils;
 import com.zzb.library.utils.ListUtils;
+import com.zzb.weibo.R;
 import com.zzb.weibo.model.ImageUrl;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class StatusImageAdapter extends RecyclerView.Adapter<StatusImageAdapter.
     @Override
     public StatusImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ImageView imageView = new ImageView(parent.getContext());
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(IMAGE_SIZE, IMAGE_SIZE));
         ViewHolder holder = new ViewHolder(imageView);
         return holder;
     }
@@ -50,7 +52,7 @@ public class StatusImageAdapter extends RecyclerView.Adapter<StatusImageAdapter.
         ImageView iv = (ImageView) holder.itemView;
 //        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //        Glide.with(mActivity).load(url).override(IMAGE_SIZE, IMAGE_SIZE).crossFade().into(iv);
-        Picasso.with(mActivity).load(url).resize(IMAGE_SIZE, IMAGE_SIZE).centerCrop().into(iv);
+        Picasso.with(mActivity).load(url).resize(IMAGE_SIZE, IMAGE_SIZE).centerCrop().placeholder(R.drawable.placeholder).into(iv);
     }
 
     @Override
