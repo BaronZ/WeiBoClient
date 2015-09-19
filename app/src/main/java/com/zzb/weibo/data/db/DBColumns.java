@@ -14,6 +14,8 @@ public class DBColumns {
         String TABLE_NAME = "MyHomePage";
         String JSON = "json";
         String ID = "id";
+        String CREATE_TABLE_SQL = SQLBuilder.Create.getInstance()
+                .addIntColumn(ID).addTextColumn(JSON).build(TABLE_NAME);
     }
 
 }

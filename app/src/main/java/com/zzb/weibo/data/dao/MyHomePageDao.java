@@ -39,9 +39,7 @@ public class MyHomePageDao extends BaseDao {
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io());
-//        return Observable.create(subscriber -> {
-//
-//        });
+
     }
 
     /**

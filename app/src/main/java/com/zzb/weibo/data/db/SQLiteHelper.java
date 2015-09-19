@@ -18,7 +18,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(DBColumns.MyHomePage.CREATE_TABLE_SQL);
     }
 
     @Override
