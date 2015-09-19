@@ -61,9 +61,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void initToolbar() {
         Toolbar toolbar = $(R.id.toolbar);
-        toolbar.setLogo(R.mipmap.ic_launcher);
+//        toolbar.setLogo(R.mipmap.ic_launcher);
         toolbar.setTitle("My Title");
-        toolbar.setSubtitle("Sub title");
+//        toolbar.setSubtitle("Sub title");
         setSupportActionBar(toolbar);
     }
 
