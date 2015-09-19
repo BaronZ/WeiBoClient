@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -33,6 +34,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static int SCREEN_SIZE;
     private static int ROW_HEIGHT;
     private Transformation mPicTransformation;
+    private boolean mCanLoadMore;
 
     public MyHomePageAdapter() {
         SCREEN_SIZE = DisplayUtils.getScreenWidth();
@@ -45,6 +47,13 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
     public void addData(List<Status> data){
         mData.addAll(data);
+    }
+    //这里设置是否可加载更多，可加载更多，则显示progressbar, 不可加载更多显示文字
+    public void setCanLoadMore(boolean canLoadMore){
+        mCanLoadMore = canLoadMore;
+        if(!canLoadMore){
+            notifyItemChanged(getItemCount() - 1);
+        }
     }
     public long getLastStatusId(){
         int lastIndex = ListUtils.getSize(mData) - 1;
@@ -99,6 +108,16 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 LinearLayout.LayoutParams fLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, fRvHeight);
                 holder.mRvPics.setLayoutParams(fLp);
                 break;
+            case ViewType.FOOTER_VEW:
+                if(mCanLoadMore){
+                    itemView = new ProgressBar(context);
+                }else{
+                    TextView tv = new TextView(context);
+                    tv.setText("没数据咯");
+                    itemView = tv;
+                }
+                holder = new NormalViewHolder(itemView, true);
+                break;
         }
         return holder;
     }
@@ -139,6 +158,9 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        if(isFooterView(position)){
+            return;
+        }
         int viewType = getItemViewType(position);
         NormalViewHolder baseViewHolder = (NormalViewHolder) viewHolder;
         populateBaseViewHolder(position, baseViewHolder);
@@ -185,11 +207,15 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return ListUtils.getSize(mData);
+        int size = ListUtils.getSize(mData);
+        return size == 0 ? 0 : size + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
+        if(isFooterView(position)){
+            return ViewType.FOOTER_VEW;
+        }
         Status status = mData.get(position);
         int viewType = -1;
         if (status.retweetedStatus != null) {//转发微博
@@ -226,6 +252,9 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public NormalViewHolder(View itemView) {
             super(itemView);
             initView();
+        }
+        public NormalViewHolder(View itemView, boolean isFooter){
+            super(itemView);
         }
 
         protected <T extends View> T $(int id) {
@@ -265,5 +294,10 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int FORWARD_PIC_3_WEIBO = 8;
         int FORWARD_PIC_6_WEIBO = 9;
         int FORWARD_PIC_9_WEIBO = 10;
+        int FOOTER_VEW = 11;//底部的View
+    }
+
+    private boolean isFooterView(int position){
+        return position == getItemCount() - 1;
     }
 }

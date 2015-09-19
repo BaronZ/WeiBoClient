@@ -96,13 +96,13 @@ public class MyHomePageFragment extends BaseFragment implements MyHomePageView, 
 
     @Override
     public void onNoMoreStatusToLoad() {
-        mRefreshLayout.setCanLoadMore(false);
+        setCanLoadMore(false);
         Toast.makeText(getActivity(), "没数据咯",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRefresh() {
-        mRefreshLayout.setCanLoadMore(true);
+        setCanLoadMore(true);
         mPresenter.refreshStatus();
     }
 
@@ -112,5 +112,10 @@ public class MyHomePageFragment extends BaseFragment implements MyHomePageView, 
         long lastId = mAdapter.getLastStatusId();
         mPresenter.loadMoreStatus(lastId);
         Toast.makeText(getActivity(), "bottom",Toast.LENGTH_SHORT).show();
+    }
+
+    private void setCanLoadMore(boolean canLoadMore){
+        mRefreshLayout.setCanLoadMore(canLoadMore);
+        mAdapter.setCanLoadMore(canLoadMore);
     }
 }

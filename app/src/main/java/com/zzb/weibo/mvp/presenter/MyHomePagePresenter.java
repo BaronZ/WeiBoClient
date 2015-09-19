@@ -42,7 +42,6 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
                 getView().hideLoading();
             }
         }
-
     }
     /**
      * 加载更多微博
@@ -104,12 +103,9 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
                 if(ListUtils.isEmpty(statuses)){
                     getView().onNoMoreStatusToLoad();
                 }else{
-                    //因为加载更多
                     getView().onLoadMoreStatusesSuccess(statuses);
                 }
-
             }
-
         }
     }
 }
