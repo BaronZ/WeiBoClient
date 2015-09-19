@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.zzb.library.picasso.transformation.RoundedTransformation;
 import com.zzb.library.utils.DisplayUtils;
 import com.zzb.library.utils.ListUtils;
@@ -29,10 +32,12 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<Status> mData;
     private static int SCREEN_SIZE;
     private static int ROW_HEIGHT;
+    private Transformation mPicTransformation;
 
     public MyHomePageAdapter() {
         SCREEN_SIZE = DisplayUtils.getScreenWidth();
         ROW_HEIGHT = SCREEN_SIZE / 3;
+        mPicTransformation = new RoundedTransformation();
     }
 
     public void setData(List<Status> data) {
@@ -161,9 +166,9 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.mTvUserName.setText(status.user.name);
         holder.mTvTime.setText(status.getFriendlyTime());
         holder.mTvStatus.setText(status.text);
-        holder.mTvFrom.setText("来自: " + status.getSource());
+        holder.mTvFrom.setText(Html.fromHtml("来自: " + status.source));
         Context context = holder.mIvIcon.getContext();
-        Picasso.with(context).load(status.user.avatarLarge).transform(new RoundedTransformation()).into(holder.mIvIcon);
+        Picasso.with(context).load(status.user.avatarLarge).transform(mPicTransformation).into(holder.mIvIcon);
     }
 
     @Override
@@ -222,6 +227,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mTvStatus = $(R.id.tv_status);
             mRvPics = $(R.id.rv_pics);
             mIvIcon = $(R.id.iv_icon);
+            mTvFrom.setMovementMethod(LinkMovementMethod.getInstance());
         }
         TextView mTvUserName, mTvTime, mTvFrom, mTvStatus, mTvComment, mTvForward, mTvGood;
         ImageView mIvIcon;
