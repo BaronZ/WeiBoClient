@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zzb.weibo.R;
 
@@ -23,7 +24,7 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
     private RefreshCallBack mCallBack;
     private View mEmptyView, mErrorView;
     private boolean mCanLoadMore = true;
-    private boolean mIsRefreshing;
+    private boolean mIsRefreshing, mIsLoadingMore;
 
     public CustomRefreshLayout(Context context) {
         super(context);
@@ -51,7 +52,12 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE && !ViewCompat.canScrollVertically(rv, 1) && mCanLoadMore) {
+                    if(mIsLoadingMore) {
+                        Toast.makeText(rv.getContext(), "正在加载更多", Toast.LENGTH_SHORT).show();
+                    }
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && !mIsRefreshing && !mIsLoadingMore
+                            && mCanLoadMore && !ViewCompat.canScrollVertically(rv, 1)) {
+                        mIsLoadingMore = true;
                         mCallBack.onLoadMore();
                     }
                 }
@@ -85,7 +91,7 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
 
     @Override
     public void completeLoadMore() {
-
+        mIsLoadingMore = false;
     }
 
     @Override
@@ -172,5 +178,10 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
         setRefreshing(true);
         mCallBack.onRefresh();
     }
-//isRefreshing // TODO: 2015/9/19
+
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        super.setRefreshing(refreshing);
+        mIsRefreshing = refreshing;
+    }
 }

@@ -48,7 +48,7 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
      * 加载更多微博
      * @param lastId 该id之前的微博
      */
-    public void loadMoreStatus(final long lastId) {
+    public void loadMoreStatus(long lastId) {
         loadStatuses(lastId);
     }
     private void loadStatuses(final long lastId){
@@ -91,12 +91,25 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
         }
     }
     private void onDataLoaded(List<Status> statuses, boolean isRefresh){
+        if(!isViewAttached()){
+            return;
+        }
         if(isRefresh){//刷新
-            if(isViewAttached()){
-                getView().onRefreshStatusesSuccess(statuses);
-            }
+            getView().onRefreshStatusesSuccess(statuses);
         }else{//加载更多
-            getView().onLoadMoreStatusesSuccess(statuses);
+            if(ListUtils.isEmpty(statuses)){
+                getView().onNoMoreStatusToLoad();
+            }else{
+                statuses.remove(0);//因为加载更多会包含上一个id的微博，所以这里要删除一个解决重复问题
+                if(ListUtils.isEmpty(statuses)){
+                    getView().onNoMoreStatusToLoad();
+                }else{
+                    //因为加载更多
+                    getView().onLoadMoreStatusesSuccess(statuses);
+                }
+
+            }
+
         }
     }
 }

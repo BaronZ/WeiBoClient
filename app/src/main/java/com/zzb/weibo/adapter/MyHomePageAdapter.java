@@ -43,6 +43,18 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setData(List<Status> data) {
         mData = data;
     }
+    public void addData(List<Status> data){
+        mData.addAll(data);
+    }
+    public long getLastStatusId(){
+        int lastIndex = ListUtils.getSize(mData) - 1;
+        return lastIndex > 0 ? getItemId(lastIndex) : 0;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return ListUtils.isEmpty(mData) ? 0 : mData.get(position).id;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

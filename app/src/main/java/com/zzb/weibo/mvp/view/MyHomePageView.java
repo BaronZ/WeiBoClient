@@ -16,4 +16,5 @@ public interface MyHomePageView extends MvpView {
     void onRefreshStatusesSuccess(List<Status> statuses);
     void onLoadMoreStatusesSuccess(List<Status> statuses);
     void onLoadStatusesFailed();
+    void onNoMoreStatusToLoad();
 }
