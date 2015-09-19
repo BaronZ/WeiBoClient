@@ -1,6 +1,7 @@
 package com.zzb.weibo.widget.refreshlayout;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,6 +22,8 @@ import com.zzb.weibo.R;
 public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshLayout {
     private RefreshCallBack mCallBack;
     private View mEmptyView, mErrorView;
+    private boolean mCanLoadMore = true;
+    private boolean mIsRefreshing;
 
     public CustomRefreshLayout(Context context) {
         super(context);
@@ -44,13 +47,22 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
         View v = getChildAt(1);
         if (v instanceof RecyclerView) {
             RecyclerView rv = (RecyclerView) v;
-            rv.addOnScrollListener(new RecyclerViewOnBottomListener() {
+            rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
-                public void onBottomReach() {
-                    mCallBack.onLoadMore();
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && !ViewCompat.canScrollVertically(rv, 1) && mCanLoadMore) {
+                        mCallBack.onLoadMore();
+                    }
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
                 }
             });
         }
+
     }
 
     @Override
@@ -62,7 +74,7 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
 
     @Override
     public void setCanLoadMore(boolean canLoadMore) {
-
+        mCanLoadMore = canLoadMore;
     }
 
 
@@ -160,5 +172,5 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
         setRefreshing(true);
         mCallBack.onRefresh();
     }
-
+//isRefreshing // TODO: 2015/9/19
 }
