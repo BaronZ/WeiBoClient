@@ -24,6 +24,7 @@ import rx.android.schedulers.AndroidSchedulers;
 public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
     private MyHomePageDao mDao;
 
+
     public MyHomePagePresenter(Context context) {
         super(context);
         mDao = new MyHomePageDao(context);
@@ -106,8 +107,9 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
         if (!ListUtils.isEmpty(statuses)) {
             long startId = statuses.get(statuses.size() - 1).id;
             long endId = statuses.get(0).id;
-            mDao.delete(startId, endId).subscribe();
+//            mDao.delete(startId, endId).subscribe();
 //            mDao.save(statuses).subscribe();
+            mDao.syncDelete(startId, endId);
             mDao.syncSave(statuses);
         }
     }

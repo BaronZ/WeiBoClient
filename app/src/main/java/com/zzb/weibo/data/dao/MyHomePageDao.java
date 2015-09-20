@@ -93,7 +93,7 @@ public class MyHomePageDao extends BaseDao {
      * @param idTo   id结束
      * @return 删除的条数
      */
-    private int syncDelete(long idFrom, long idTo) {
+    public int syncDelete(long idFrom, long idTo) {
         if(idFrom > idTo){
             throw new IllegalArgumentException("id from > id to");
         }
