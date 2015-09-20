@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zzb.weibo.R;
 
@@ -52,9 +51,7 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
-                    if(mIsLoadingMore) {
-                        Toast.makeText(rv.getContext(), "正在加载更多", Toast.LENGTH_SHORT).show();
-                    }
+
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && !mIsRefreshing && !mIsLoadingMore
                             && mCanLoadMore && !ViewCompat.canScrollVertically(rv, 1)) {
                         mIsLoadingMore = true;

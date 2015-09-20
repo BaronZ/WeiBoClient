@@ -102,14 +102,14 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 LinearLayout.LayoutParams fLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, fRvHeight);
                 holder.mRvPics.setLayoutParams(fLp);
                 break;
-            case ViewType.FOOTER_VEW:
-                if(mCanLoadMore){
-                    itemView = new ProgressBar(context);
-                }else{
-                    TextView tv = new TextView(context);
-                    tv.setText("没数据咯");
-                    itemView = tv;
-                }
+            case ViewType.FOOTER_VIEW_MSG:
+                TextView tv = new TextView(context);
+                tv.setText("没数据咯");//TODO 拿到外面去设置
+                itemView = tv;
+                holder = new NormalViewHolder(itemView, true);
+                break;
+            case ViewType.FOOTER_VEW_PROGRESS:
+                itemView = new ProgressBar(context);
                 holder = new NormalViewHolder(itemView, true);
                 break;
         }
@@ -209,7 +209,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemViewType(int position) {
         if(isFooterView(position)){
-            return ViewType.FOOTER_VEW;
+            return mCanLoadMore ? ViewType.FOOTER_VEW_PROGRESS : ViewType.FOOTER_VIEW_MSG;
         }
         Status status = mData.get(position);
         int viewType = -1;
@@ -289,7 +289,8 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int FORWARD_PIC_3_WEIBO = 8;
         int FORWARD_PIC_6_WEIBO = 9;
         int FORWARD_PIC_9_WEIBO = 10;
-        int FOOTER_VEW = 11;//底部的View
+        int FOOTER_VEW_PROGRESS = 11;//底部的View
+        int FOOTER_VIEW_MSG = 12;
     }
 
     private boolean isFooterView(int position){
