@@ -102,6 +102,11 @@ public class MyHomePageFragment extends BaseFragment implements MyHomePageView, 
     }
 
     @Override
+    public void onNoNetWork() {
+        SnackbarUtils.showNoNetWork(mRefreshLayout);
+    }
+
+    @Override
     public void onRefresh() {
         setCanLoadMore(true);
         if(mIsFirstLoad){

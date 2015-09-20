@@ -7,4 +7,5 @@
     <string name="title_activity_auth">AuthActivity</string>
 
     <string name="fab_behavior">com.zzb.weibo.widget.behavior.ScrollAwareFABBehavior</string>
+    <string name="no_net_work">网络连接不可用</string>
 </resources>
