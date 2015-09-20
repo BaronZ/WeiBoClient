@@ -51,6 +51,7 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
         }else{//无网络，无法刷新
             if(isViewAttached()){
                 getView().hideLoading();
+                getView().onNoNetWork();
             }
         }
     }
