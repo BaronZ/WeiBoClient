@@ -15,8 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
-import com.zzb.library.picasso.transformation.RoundedTransformation;
 import com.zzb.library.utils.DisplayUtils;
 import com.zzb.library.utils.ListUtils;
 import com.zzb.weibo.R;
@@ -33,13 +31,11 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<Status> mData;
     private static int SCREEN_SIZE;
     private static int ROW_HEIGHT;
-    private Transformation mPicTransformation;
     private boolean mCanLoadMore;
 
     public MyHomePageAdapter() {
         SCREEN_SIZE = DisplayUtils.getScreenWidth();
         ROW_HEIGHT = SCREEN_SIZE / 3;
-        mPicTransformation = new RoundedTransformation();
     }
 
     public void setData(List<Status> data) {
@@ -51,9 +47,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     //这里设置是否可加载更多，可加载更多，则显示progressbar, 不可加载更多显示文字
     public void setCanLoadMore(boolean canLoadMore){
         mCanLoadMore = canLoadMore;
-        if(!canLoadMore){
-            notifyItemChanged(getItemCount() - 1);
-        }
+        notifyItemChanged(getItemCount() - 1);
     }
     public long getLastStatusId(){
         int lastIndex = ListUtils.getSize(mData) - 1;
@@ -202,7 +196,8 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.mTvStatus.setText(status.text);
         holder.mTvFrom.setText(Html.fromHtml("来自: " + status.source));
         Context context = holder.mIvIcon.getContext();
-        Picasso.with(context).load(status.user.avatarLarge).transform(mPicTransformation).into(holder.mIvIcon);
+        Picasso.with(context).load(status.user.avatarLarge).into(holder.mIvIcon);
+
     }
 
     @Override

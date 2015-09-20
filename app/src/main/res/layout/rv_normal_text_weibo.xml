@@ -6,7 +6,7 @@
     android:background="@drawable/bg_card"
     >
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_icon"
         style="@style/timeline_icon_style"
         android:src="@mipmap/ic_launcher" />
