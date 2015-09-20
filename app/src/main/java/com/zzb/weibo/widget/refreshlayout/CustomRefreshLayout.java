@@ -183,5 +183,6 @@ public class CustomRefreshLayout extends SwipeRefreshLayout implements IRefreshL
     public void setRefreshing(boolean refreshing) {
         super.setRefreshing(refreshing);
         mIsRefreshing = refreshing;
+        setEnabled(!refreshing);
     }
 }
