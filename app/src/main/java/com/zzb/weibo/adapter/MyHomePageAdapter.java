@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -109,7 +108,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 holder = new NormalViewHolder(itemView, true);
                 break;
             case ViewType.FOOTER_VEW_PROGRESS:
-                itemView = new ProgressBar(context);
+                itemView = inflater.inflate(R.layout.layout_footer_progress, parent, false);
                 holder = new NormalViewHolder(itemView, true);
                 break;
         }
