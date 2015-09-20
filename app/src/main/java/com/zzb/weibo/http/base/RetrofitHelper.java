@@ -1,5 +1,6 @@
 package com.zzb.weibo.http.base;
 
+import com.facebook.stetho.okhttp.StethoInterceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.zzb.weibo.BuildConfig;
 import com.zzb.weibo.MyApplication;
@@ -36,6 +37,9 @@ public class RetrofitHelper {
     }
     private static RestAdapter.Builder getBaseRestAdapterBuilder(String endPoint){
         OkHttpClient okHttpClient = new OkHttpClient();
+        if(BuildConfig.DEBUG){
+            okHttpClient.networkInterceptors().add(new StethoInterceptor());
+        }
         okHttpClient.setConnectTimeout(HttpConfig.CONNECTION_TIMEOUT_IN_SECOND, TimeUnit.SECONDS);
         okHttpClient.setReadTimeout(HttpConfig.READ_TIMEOUT_IN_SECOND, TimeUnit.SECONDS);
         okHttpClient.setWriteTimeout(HttpConfig.WRITE_TIMEOUT_IN_SECOND, TimeUnit.SECONDS);

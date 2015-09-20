@@ -15,7 +15,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         APP_CONTEXT = this;
-        AppInit.getInstance().run();
+        AppInit.getInstance(this).run();
 
     }
 }

@@ -1,5 +1,8 @@
 package com.zzb.weibo.common;
 
+import android.content.Context;
+
+import com.facebook.stetho.Stetho;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
@@ -11,10 +14,11 @@ import com.zzb.weibo.MyApplication;
  */
 public class AppInit {
     private static AppInit instance;
-
-    public static AppInit getInstance(){
+    private static Context sAppContext;
+    public static AppInit getInstance(Context context){
         if(instance == null){
             instance = new AppInit();
+            sAppContext = context;
         }
         return instance;
     }
@@ -45,7 +49,7 @@ public class AppInit {
      *created at 2015/8/31 17:35
      */
     private void debug(){
-
+        Stetho.initializeWithDefaults(sAppContext);
     }
     /**
      * 正式环境配置
