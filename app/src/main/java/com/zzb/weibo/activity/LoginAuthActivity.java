@@ -11,6 +11,7 @@ import com.zzb.library.utils.UrlUtils;
 import com.zzb.weibo.R;
 import com.zzb.weibo.data.AccessTokenKeeper;
 import com.zzb.weibo.http.api.AuthApi;
+import com.zzb.weibo.http.api.UserApi;
 import com.zzb.weibo.http.base.ApiUrl;
 import com.zzb.weibo.http.base.HttpConfig;
 import com.zzb.weibo.http.base.RetrofitHelper;
@@ -52,9 +53,15 @@ public class LoginAuthActivity extends BaseActivity {
     }
 
     private void getAccessToken(String code) {
-        RetrofitHelper.getApi(HttpConfig.AUTH_END_POINT, AuthApi.class).getAccessToken(code).subscribeOn(AndroidSchedulers.mainThread()).subscribe(
-                token -> {
-                    AccessTokenKeeper.writeAccessToken(LoginAuthActivity.this, token);
+        RetrofitHelper.getApi(HttpConfig.AUTH_END_POINT, AuthApi.class).getAccessToken(code)
+                .flatMap(accessToken -> {
+                    AccessTokenKeeper.writeAccessToken(LoginAuthActivity.this, accessToken);
+                    return RetrofitHelper.getApi(UserApi.class).getUID();
+                })
+                .subscribeOn(AndroidSchedulers.mainThread()).subscribe(
+                uid -> {
+//                    uid.uid;//TODO SAVE uid
+                    Log.d(TAG, "getAccessToken " + uid.uid);
                 },
                 error -> {
                     Log.e(TAG, "getAccessToken ", error);
