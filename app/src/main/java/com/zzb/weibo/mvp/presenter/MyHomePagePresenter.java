@@ -107,7 +107,8 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
             long startId = statuses.get(statuses.size() - 1).id;
             long endId = statuses.get(0).id;
             mDao.delete(startId, endId).subscribe();
-            mDao.save(statuses).subscribe();
+//            mDao.save(statuses).subscribe();
+            mDao.syncSave(statuses);
         }
     }
     private void onDataLoaded(List<Status> statuses, boolean isRefresh){

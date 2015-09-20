@@ -105,7 +105,7 @@ public class MyHomePageDao extends BaseDao {
      * 同步保存
      * created at 2015/9/12 23:47
      */
-    private void syncSave(List<Status> statuses) {
+    public void syncSave(List<Status> statuses) {
         List<ContentValues> cvs = new ArrayList<>();
         for (Status status : statuses) {
             ContentValues cv = getContentValues(status);
