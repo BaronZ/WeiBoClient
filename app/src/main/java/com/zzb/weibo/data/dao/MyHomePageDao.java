@@ -110,8 +110,8 @@ public class MyHomePageDao extends BaseDao {
         for (Status status : statuses) {
             ContentValues cv = getContentValues(status);
             cvs.add(cv);
-            batchInsert(TABLE_NAME, cvs);
         }
+        batchInsert(TABLE_NAME, cvs);
     }
 
     private ContentValues getContentValues(Status status) {

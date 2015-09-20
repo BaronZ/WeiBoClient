@@ -36,7 +36,7 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
         long lastId = 0;
         Observable<List<Status>> ob = Observable
                 //数据库拿的话，是比该id小的微博，所以首页要无限大
-                .concat(getLoadFromDbRx(Integer.MAX_VALUE), getLoadFromNetRx(lastId))//如果有缓存，直接用，没缓存，拿网络
+                .concat(getLoadFromDbRx(Long.MAX_VALUE), getLoadFromNetRx(lastId))//如果有缓存，直接用，没缓存，拿网络
                 .takeFirst(statuses -> !ListUtils.isEmpty(statuses));
         onObservablePrepared(ob, true);
     }
@@ -105,7 +105,7 @@ public class MyHomePagePresenter extends MvpBasePresenter<MyHomePageView> {
         if (!ListUtils.isEmpty(statuses)) {
             long startId = statuses.get(statuses.size() - 1).id;
             long endId = statuses.get(0).id;
-            mDao.delete(startId, endId);
+            mDao.delete(startId, endId).subscribe();
             mDao.save(statuses).subscribe();
         }
     }
