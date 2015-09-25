@@ -1,8 +1,13 @@
 package com.zzb.weibo.model;
 
+import android.text.Html;
+import android.text.Spanned;
+import android.text.TextUtils;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.zzb.weibo.common.WeiBoTimeUtils;
+import com.zzb.weibo.utils.StatusUtils;
 
 import java.util.List;
 
@@ -71,6 +76,20 @@ public class Status {
     @Expose
     public Object[] ad;//微博流内的推广微博ID
 
+    private String formattedText;
+    public String getFormattedText(){
+        if(TextUtils.isEmpty(formattedText)){
+            formattedText = StatusUtils.formatAtTag(text);
+        }
+        return formattedText;
+    }
+    private Spanned spannedText;
+    public Spanned getSpannedText(){
+        if(spannedText == null){
+            spannedText = Html.fromHtml(getFormattedText());
+        }
+        return spannedText;
+    }
 //    private String friendlyTime;
     public String getFriendlyTime(){
 //        if(TextUtils.isEmpty(friendlyTime)){//加成员变量会导致时间只获取一次不刷新

@@ -159,7 +159,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         populateBaseViewHolder(position, baseViewHolder);
         Status status = mData.get(position);
         Status retweetedStatus = status.retweetedStatus;
-        baseViewHolder.mTvStatus.setText(status.text);
+        baseViewHolder.mTvStatus.setText(status.getSpannedText());
         switch (viewType) {
             case ViewType.NORMAL_TEXT_WEIBO:
                 break;
@@ -172,13 +172,13 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 nAdapter.notifyDataSetChanged();
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
-                baseViewHolder.mTvOrgStatus.setText(retweetedStatus.text);
+                baseViewHolder.mTvOrgStatus.setText(status.getSpannedText());
                 break;
             case ViewType.FORWARD_PIC_1_WEIBO:
             case ViewType.FORWARD_PIC_3_WEIBO:
             case ViewType.FORWARD_PIC_6_WEIBO:
             case ViewType.FORWARD_PIC_9_WEIBO:
-                baseViewHolder.mTvOrgStatus.setText(retweetedStatus.text);
+                baseViewHolder.mTvOrgStatus.setText(status.getSpannedText());
                 StatusImageAdapter fAdapter = (StatusImageAdapter) baseViewHolder.mRvPics.getAdapter();
                 fAdapter.setUrls(retweetedStatus.picUrls);
                 fAdapter.notifyDataSetChanged();
@@ -190,7 +190,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Status status = mData.get(position);
         holder.mTvUserName.setText(status.user.name);
         holder.mTvTime.setText(status.getFriendlyTime());
-        holder.mTvStatus.setText(status.text);
+        holder.mTvStatus.setText(status.getSpannedText());
         holder.mTvFrom.setText(Html.fromHtml("来自: " + status.source));
         Context context = holder.mIvIcon.getContext();
         Picasso.with(context).load(status.user.avatarLarge).into(holder.mIvIcon);
