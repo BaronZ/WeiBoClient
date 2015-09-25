@@ -85,14 +85,14 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
                 itemView = inflater.inflate(R.layout.rv_repost_text_weibo, parent, false);
-                holder = new ForwardViewHolder(itemView);
+                holder = new NormalViewHolder(itemView);
                 break;
             case ViewType.FORWARD_PIC_1_WEIBO:
             case ViewType.FORWARD_PIC_3_WEIBO:
             case ViewType.FORWARD_PIC_6_WEIBO:
             case ViewType.FORWARD_PIC_9_WEIBO:
                 itemView = inflater.inflate(R.layout.rv_repost_pics_weibo, parent, false);
-                holder = new ForwardViewHolder(itemView);
+                holder = new NormalViewHolder(itemView);
                 GridLayoutManager forwardManager = new GridLayoutManager(context, getRvSpanNum(viewType));
                 StatusImageAdapter forwardAdapter = new StatusImageAdapter((Activity) context);
                 holder.mRvPics.setLayoutManager(forwardManager);
@@ -162,7 +162,6 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         baseViewHolder.mTvStatus.setText(status.text);
         switch (viewType) {
             case ViewType.NORMAL_TEXT_WEIBO:
-                NormalViewHolder nTextHolder = (NormalViewHolder) viewHolder;
                 break;
             case ViewType.NORMAL_PIC_1_WEIBO:
             case ViewType.NORMAL_PIC_3_WEIBO:
@@ -171,19 +170,18 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 StatusImageAdapter nAdapter = (StatusImageAdapter) baseViewHolder.mRvPics.getAdapter();
                 nAdapter.setUrls(status.picUrls);
                 nAdapter.notifyDataSetChanged();
-                NormalViewHolder nPicHolder = (NormalViewHolder) viewHolder;
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
-                ForwardViewHolder fTextHolder = (ForwardViewHolder) viewHolder;
+                baseViewHolder.mTvOrgStatus.setText(retweetedStatus.text);
                 break;
             case ViewType.FORWARD_PIC_1_WEIBO:
             case ViewType.FORWARD_PIC_3_WEIBO:
             case ViewType.FORWARD_PIC_6_WEIBO:
             case ViewType.FORWARD_PIC_9_WEIBO:
+                baseViewHolder.mTvOrgStatus.setText(retweetedStatus.text);
                 StatusImageAdapter fAdapter = (StatusImageAdapter) baseViewHolder.mRvPics.getAdapter();
                 fAdapter.setUrls(retweetedStatus.picUrls);
                 fAdapter.notifyDataSetChanged();
-                ForwardViewHolder fPicHolder = (ForwardViewHolder) viewHolder;
                 break;
         }
     }
@@ -255,27 +253,22 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return (T) itemView.findViewById(id);
         }
 
-        void initView() {
+        private void initView() {
             mTvUserName = $(R.id.tv_user_name);
             mTvTime = $(R.id.tv_time);
             mTvFrom = $(R.id.tv_from);
             mTvStatus = $(R.id.tv_status);
             mRvPics = $(R.id.rv_pics);
             mIvIcon = $(R.id.iv_icon);
+            mTvOrgStatus = $(R.id.tv_org_status);
             mTvFrom.setMovementMethod(LinkMovementMethod.getInstance());
         }
-        TextView mTvUserName, mTvTime, mTvFrom, mTvStatus, mTvComment, mTvForward, mTvGood;
+        TextView mTvUserName, mTvTime, mTvFrom, mTvStatus, mTvComment, mTvForward, mTvGood, mTvOrgStatus;
         ImageView mIvIcon;
         RecyclerView mRvPics;
     }
 
-    private static class ForwardViewHolder extends NormalViewHolder {
-        TextView mTvOrgUserName, mTvOrgTime, mTvOrgFrom, mTvOrgStatus;
 
-        public ForwardViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
 
     private static interface ViewType {
         int NORMAL_TEXT_WEIBO = 1;
