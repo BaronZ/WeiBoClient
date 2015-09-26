@@ -8,4 +8,5 @@
 
     <string name="fab_behavior">com.zzb.weibo.widget.behavior.ScrollAwareFABBehavior</string>
     <string name="no_net_work">网络连接不可用</string>
+    <string name="title_activity_user">UserActivity</string>
 </resources>

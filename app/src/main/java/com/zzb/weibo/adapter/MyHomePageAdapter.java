@@ -261,7 +261,10 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mRvPics = $(R.id.rv_pics);
             mIvIcon = $(R.id.iv_icon);
             mTvOrgStatus = $(R.id.tv_org_status);
-            mTvFrom.setMovementMethod(LinkMovementMethod.getInstance());
+            mTvStatus.setMovementMethod(LinkMovementMethod.getInstance());
+            if(mTvOrgStatus != null){
+                mTvOrgStatus.setMovementMethod(LinkMovementMethod.getInstance());
+            }
         }
         TextView mTvUserName, mTvTime, mTvFrom, mTvStatus, mTvComment, mTvForward, mTvGood, mTvOrgStatus;
         ImageView mIvIcon;

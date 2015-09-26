@@ -1,8 +1,6 @@
 package com.zzb.weibo.model;
 
-import android.text.Html;
-import android.text.Spanned;
-import android.text.TextUtils;
+import android.text.SpannableString;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -76,17 +74,11 @@ public class Status {
     @Expose
     public Object[] ad;//微博流内的推广微博ID
 
-    private String formattedText;
-    public String getFormattedText(){
-        if(TextUtils.isEmpty(formattedText)){
-            formattedText = StatusUtils.formatAtTag(text);
-        }
-        return formattedText;
-    }
-    private Spanned spannedText;
-    public Spanned getSpannedText(){
+
+    private SpannableString spannedText;
+    public SpannableString getSpannedText(){
         if(spannedText == null){
-            spannedText = Html.fromHtml(getFormattedText());
+            spannedText = StatusUtils.getFormattedSpan(text);
         }
         return spannedText;
     }

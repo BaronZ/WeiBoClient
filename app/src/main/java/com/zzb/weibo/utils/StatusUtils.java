@@ -1,5 +1,10 @@
 package com.zzb.weibo.utils;
 
+import android.text.SpannableString;
+
+import com.zzb.weibo.widget.textview.span.GotoAtSapn;
+import com.zzb.weibo.widget.textview.span.GotoTopicSpan;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,34 +19,33 @@ public class StatusUtils {
     private static final Pattern PATTERN_TAG = Pattern.compile(REGEXP_TAG);
     private static final String URL_AT = "https://api.weibo.com/2/statuses/mentions.json";
     private static final String URL_TAG = "https://api.weibo.com/2/search/topics.json";
-    /**
-     * 格式化@和话题##
-     *@author ZZB
-     *created at 2015/9/26 0:21
-     */
-    public static String formatAtTag(String status) {
-        if(status.contains("@")){
-            Matcher mAt = PATTERN_AT.matcher(status);
+
+
+    public static SpannableString getFormattedSpan(String text){
+        SpannableString spannableString = new SpannableString(text);
+        if(text.contains("@")){
+            Matcher mAt = PATTERN_AT.matcher(text);
             while (mAt.find()) {
                 try {
                     String at = mAt.group();
-                    status = status.replaceAll(at, "<a href='@'>" + at.substring(1) + "</a>");
+                    spannableString.setSpan(new GotoAtSapn(at), mAt.start(), mAt.end(), 0);
                 } catch (Exception e) {
                     continue;
                 }
             }
         }
-        if(status.contains("#")){
-            Matcher m = PATTERN_TAG.matcher(status);
-            while (m.find()) {
+        if(text.contains("#")){
+            Matcher mTag = PATTERN_TAG.matcher(text);
+            while (mTag.find()) {
                 try {
-                    String tag = m.group();
-                    status = status.replaceAll(tag, "<a href='#'>" + tag.substring(1, tag.length() - 1) + "</a>");
+                    String tag = mTag.group();
+                    spannableString.setSpan(new GotoTopicSpan(tag), mTag.start(), mTag.end(), 0);
                 } catch (Exception e) {
                     continue;
                 }
             }
         }
-        return status;
+        return spannableString;
     }
+
 }
