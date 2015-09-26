@@ -76,11 +76,22 @@ public class Status {
 
 
     private SpannableString spannedText;
+    private SpannableString retweetedSpannedTExt;
     public SpannableString getSpannedText(){
         if(spannedText == null){
             spannedText = StatusUtils.getFormattedSpan(text);
         }
         return spannedText;
+    }
+    public SpannableString getRetweetedSpannedText(){
+        if(retweetedSpannedTExt == null){
+            String text = this.text;
+            if(user != null){
+                text = "@" + user.name + " : " + text;
+            }
+            retweetedSpannedTExt = StatusUtils.getFormattedSpan(text);
+        }
+        return retweetedSpannedTExt;
     }
 //    private String friendlyTime;
     public String getFriendlyTime(){

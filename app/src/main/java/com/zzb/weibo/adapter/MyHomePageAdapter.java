@@ -172,13 +172,13 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 nAdapter.notifyDataSetChanged();
                 break;
             case ViewType.FORWARD_TEXT_WEIBO:
-                baseViewHolder.mTvOrgStatus.setText(status.getSpannedText());
+                baseViewHolder.mTvOrgStatus.setText(retweetedStatus.getRetweetedSpannedText());
                 break;
             case ViewType.FORWARD_PIC_1_WEIBO:
             case ViewType.FORWARD_PIC_3_WEIBO:
             case ViewType.FORWARD_PIC_6_WEIBO:
             case ViewType.FORWARD_PIC_9_WEIBO:
-                baseViewHolder.mTvOrgStatus.setText(status.getSpannedText());
+                baseViewHolder.mTvOrgStatus.setText(retweetedStatus.getRetweetedSpannedText());
                 StatusImageAdapter fAdapter = (StatusImageAdapter) baseViewHolder.mRvPics.getAdapter();
                 fAdapter.setUrls(retweetedStatus.picUrls);
                 fAdapter.notifyDataSetChanged();
@@ -273,7 +273,7 @@ public class MyHomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-    private static interface ViewType {
+    private interface ViewType {
         int NORMAL_TEXT_WEIBO = 1;
         int NORMAL_PIC_1_WEIBO = 2;//单图
         int NORMAL_PIC_3_WEIBO = 3;//2-3图
