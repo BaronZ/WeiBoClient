@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".activity.TopicActivity" >
         </activity>
+        <activity android:name=".activity.WebViewActivity" >
+        </activity>
     </application>
 
 </manifest>

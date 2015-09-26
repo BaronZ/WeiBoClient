@@ -4,6 +4,7 @@ import android.text.SpannableString;
 
 import com.zzb.weibo.widget.textview.span.GotoAtSapn;
 import com.zzb.weibo.widget.textview.span.GotoTopicSpan;
+import com.zzb.weibo.widget.textview.span.GotoWebViewSpan;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,8 +16,10 @@ import java.util.regex.Pattern;
 public class StatusUtils {
     private static final String REGEXP_AT = "@[\\u4e00-\\u9fa5\\w\\-]+";
     private static final String REGEXP_TAG = "#[^#]+#";
+    private static final String REGEXP_URL = "http://t.cn/[\\w]+";
     private static final Pattern PATTERN_AT = Pattern.compile(REGEXP_AT);
     private static final Pattern PATTERN_TAG = Pattern.compile(REGEXP_TAG);
+    private static final Pattern PATTERN_URL = Pattern.compile(REGEXP_URL);
     private static final String URL_AT = "https://api.weibo.com/2/statuses/mentions.json";
     private static final String URL_TAG = "https://api.weibo.com/2/search/topics.json";
 
@@ -40,6 +43,17 @@ public class StatusUtils {
                 try {
                     String tag = mTag.group();
                     spannableString.setSpan(new GotoTopicSpan(tag), mTag.start(), mTag.end(), 0);
+                } catch (Exception e) {
+                    continue;
+                }
+            }
+        }
+        if(text.contains("http://t.cn/")){
+            Matcher m = PATTERN_URL.matcher(text);
+            while (m.find()) {
+                try {
+                    String url = m.group();
+                    spannableString.setSpan(new GotoWebViewSpan(url), m.start(), m.end(), 0);
                 } catch (Exception e) {
                     continue;
                 }
