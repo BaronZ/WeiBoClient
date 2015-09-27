@@ -18,7 +18,7 @@ import com.zzb.weibo.R;
 public class UserActivity extends BaseMVPActivity {
     private static final String EXTRA_USERNAME = "EXTRA_USERNAME";
     //跳转到当前activity
-    public static void to(Context context, String userName){
+    public static void launch(Context context, String userName){
         Intent intent = new Intent(context, UserActivity.class);
         intent.putExtra(EXTRA_USERNAME, userName);
         context.startActivity(intent);

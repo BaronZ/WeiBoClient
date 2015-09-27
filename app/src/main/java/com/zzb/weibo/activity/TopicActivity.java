@@ -14,7 +14,7 @@ import com.zzb.weibo.R;
 public class TopicActivity extends AppCompatActivity {
     private static final String EXTRA_TOPIC = "EXTRA_TOPIC";
 
-    public static void to(Context context, String topic){
+    public static void launch(Context context, String topic){
         Intent intent = new Intent(context, TopicActivity.class);
         intent.putExtra(EXTRA_TOPIC, topic);
         context.startActivity(intent);

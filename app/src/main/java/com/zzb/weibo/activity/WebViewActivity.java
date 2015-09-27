@@ -9,7 +9,7 @@ import com.zzb.weibo.R;
 
 public class WebViewActivity extends AppCompatActivity {
     private static final String EXTRA_URL = "EXTRA_URL";
-    public static void to(Context context, String url){
+    public static void launch(Context context, String url){
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra(EXTRA_URL, url);
         context.startActivity(intent);

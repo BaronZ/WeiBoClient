@@ -15,6 +15,6 @@ public class GotoWebViewSpan extends NoUnderlineSpan {
     }
     @Override
     public void onClick(View widget) {
-        WebViewActivity.to(widget.getContext(), mUrl);
+        WebViewActivity.launch(widget.getContext(), mUrl);
     }
 }

@@ -15,6 +15,6 @@ public class GotoAtSapn extends NoUnderlineSpan {
     }
     @Override
     public void onClick(View widget) {
-        UserActivity.to(widget.getContext(), mUserName);
+        UserActivity.launch(widget.getContext(), mUserName);
     }
 }

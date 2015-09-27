@@ -16,6 +16,6 @@ public class GotoTopicSpan extends NoUnderlineSpan {
     }
     @Override
     public void onClick(View widget) {
-        TopicActivity.to(widget.getContext(), mTopic);
+        TopicActivity.launch(widget.getContext(), mTopic);
     }
 }
