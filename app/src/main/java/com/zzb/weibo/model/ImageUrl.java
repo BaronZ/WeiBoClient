@@ -11,8 +11,10 @@ import com.zzb.weibo.common.ImageUtils;
  */
 public class ImageUrl {
     @SerializedName("thumbnail_pic")
-    public String thumbUrl;
-
+    private String thumbUrl;
+    public String getUrl(){
+        return getMiddleUrl();
+    }
     public String getMiddleUrl(){
         return TextUtils.isEmpty(thumbUrl) ? thumbUrl : ImageUtils.getMiddleUrl(thumbUrl);
     }

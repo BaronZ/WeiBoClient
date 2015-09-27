@@ -47,7 +47,7 @@ public class StatusImageAdapter extends RecyclerView.Adapter<StatusImageAdapter.
 
     @Override
     public void onBindViewHolder(StatusImageAdapter.ViewHolder holder, int position) {
-        String url = mUrls.get(position).getMiddleUrl();
+        String url = mUrls.get(position).getUrl();
 //        String url = mUrls.get(position).thumbUrl;
         ImageView iv = (ImageView) holder.itemView;
 //        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
