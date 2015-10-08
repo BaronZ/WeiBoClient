@@ -39,7 +39,7 @@ public class AppInit {
     }
 
     private void initUmeng() {
-        AnalyticsConfig.setAppkey(BuildConfig.UMENG_APP_KEY);
+        AnalyticsConfig.setAppkey(sAppContext, BuildConfig.UMENG_APP_KEY);
         MobclickAgent.setDebugMode(BuildConfig.DEBUG);
         MobclickAgent.openActivityDurationTrack(false);
     }
